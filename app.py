@@ -49,9 +49,26 @@ def counter():
 <html>
     <body>
         Сколько раз вы сюда заходили: ''' + str(count) + '''
+        <a href="/lab1/counternull">Обнуление счетчика</a>
     </body>
 </html>
 '''
+@app.route('/lab1/counternull')
+def counternull():
+    global count
+    count = 0
+    return'''
+<!doctype html>
+<html>
+    <body>
+        Страница было очищена
+        <a href="/lab1/counter">Обратно на страницу</a>
+    </body>
+</html>
+'''
+
+
+
 @app.route('/info')
 def info():
     return redirect("/author")
