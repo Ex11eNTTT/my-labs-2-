@@ -1,6 +1,5 @@
 from flask import Flask, url_for, redirect
 app = Flask(__name__)
-@app.route("/")
 @app.route("/lab1/web")
 def start():
     return """<!doctype html>
@@ -87,3 +86,29 @@ def created():
 @app.errorhandler(404)
 def not_found(err):
     return "нет такой страницы", 404
+
+@app.route("/")
+@app.route("/index")
+def index():
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+        <head>
+            <h1>НГТУ, ФБ, WEB-программирование,часть 2. Список лабораторных</h1>
+        </head>
+        <main>
+            <ol>
+                <li><a href="/lab1">Первая лабораторная</a></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </main>
+        <footer>
+            <div>Гаврилов Дмитрий Дмитриевич, ФБИ-21, 3 курс, 2024</div>
+        </footer>
+    </html>
+    '''
