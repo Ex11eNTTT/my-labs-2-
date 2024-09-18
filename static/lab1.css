@@ -1,0 +1,9 @@
+.image{
+    height: 700px;
+    width: auto;
+}
+h1{
+    font-size: 100px;
+    font-style: italic;
+    color: rgb(31, 219, 53);
+}
