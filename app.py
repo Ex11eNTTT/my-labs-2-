@@ -85,7 +85,22 @@ def created():
     ''',201
 @app.errorhandler(404)
 def not_found(err):
-    return "нет такой страницы", 404
+    path = url_for('static', filename='goblin.png')
+    path_css = url_for("static", filename='lab1.css')
+    return'''
+    <!doctype html>
+    <link rel="stylesheet" href="'''+path_css+'''">
+    <html>
+        <head>
+        </head>
+        <main>
+            <div class="trabl">Ты походу не тута :)</div>
+            <img class="image2" src="''' +path+ '''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''', 404
 
 @app.route("/")
 @app.route("/index")

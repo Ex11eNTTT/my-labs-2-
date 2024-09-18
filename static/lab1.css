@@ -7,3 +7,13 @@ h1{
     font-style: italic;
     color: rgb(31, 219, 53);
 }
+
+.image2{
+    height: 500px;
+    width: auto;
+}
+.trabl{
+    font-size: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(62, 0, 169);
+}
