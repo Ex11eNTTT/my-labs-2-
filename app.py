@@ -154,18 +154,32 @@ def lab1():
 @app.route("/400")
 def l400():
     return "Допущена синтаксическая ошибка", 400
+
 @app.route("/401")
 def l401():
     return "Требуется аутентификация", 401
+
 @app.route("/402")
 def l402():
     return "Требуется оплата", 402
+
 @app.route("/403")
 def l403():
     return "Нету полномочий", 403
+
 @app.route("/405")
 def l405():
     return "Недопустимый метод", 405
+
 @app.route("/418")
 def l418():
     return "Я чайник", 418
+
+@app.route("/error_500")
+def error_go():
+    res = 1/0
+    return res
+
+@app.errorhandler(500)
+def error_500(err):
+    return "Внутренняя ошибка сервера", 500
