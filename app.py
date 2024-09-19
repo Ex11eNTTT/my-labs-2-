@@ -1,5 +1,6 @@
 from flask import Flask, url_for, redirect
 app = Flask(__name__)
+
 @app.route("/lab1/web")
 def start():
     return """<!doctype html>
@@ -72,17 +73,67 @@ def counternull():
 def info():
     return redirect("/lab1/author")
 
+
+create = 0
 @app.route("/lab1/created")
 def created():
+    global create
+    if create == 0:
+        create = 1
+        return'''
+        <!doctype html>
+        <html>
+            <body>
+                <h1>Ресурс успешно создан!</h1>
+            </body>
+        </html>
+        ''',201
+    else:
+        return'''
+        <!doctype html>
+        <html>
+            <body>
+                <h1>Отказано! Ресурс уже есть</h1>
+            </body>
+        </html>
+        ''',400
+@app.route("/lab1/delete")
+def deleted():
+    global create
+    if create == 1:
+        create = 0
+        return'''
+        <!doctype html>
+        <html>
+            <body>
+                <h1>Ресурс удален!</h1>
+            </body>
+        </html>
+        ''',200
+    else:
+        return'''
+        <!doctype html>
+        <html>
+            <body>
+                <h1>Ресурс отсутсвует!</h1>
+            </body>
+        </html>
+        ''',400
+    
+@app.route("/lab1/resurce")
+def resurce():
+    global create
     return'''
     <!doctype html>
     <html>
         <body>
-            <h1>Создано успешно</h1>
-            <div><i>что-то создано...</i></div>
+            <div>Статус ресурса: '''+str(create)+'''</div>
+            <p><a href="/lab1/created">Создать ресурс!</a></p>
+            <p><a href="/lab1/delete">Удалить ресурс!</a></p>
         </body>
     </html>
-    ''',201
+    ''',200
+
 @app.errorhandler(404)
 def not_found(err):
     path = url_for('static', filename='goblin.png')
@@ -105,25 +156,31 @@ def not_found(err):
 @app.route("/")
 @app.route("/index")
 def index():
+    indexcss = url_for('static', filename="indexcss.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
     return'''
     <!doctype html>
     <title>НГТУ, ФБ, Лабораторные работы</title>
     <html>
+    <link rel="stylesheet" href="'''+indexcss+'''">
         <head>
-            <h1>НГТУ, ФБ, WEB-программирование,часть 2. Список лабораторных</h1>
+            <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
         </head>
         <main>
-            <ol>
-                <li><a href="/lab1">Первая лабораторная</a></li>
-                <li><a href="/lab2">Вторая лабораторная</a></li>
-                <li><a href="/lab3">Третья лабораторная</a></li>
-                <li><a href="/lab4">Четвертая лабораторная</a></li>
-                <li><a href="/lab5">Пятая лабораторная</a></li>
-                <li><a href="/lab6">Шестая лабораторная</a></li>
-            </ol>
+            <div class="spisok">
+                <ol>
+                    <li><a href="/lab1">Первая лабораторная</a></li>
+                    <li><a href="/lab2">Вторая лабораторная</a></li>
+                    <li><a href="/lab3">Третья лабораторная</a></li>
+                    <li><a href="/lab4">Четвертая лабораторная</a></li>
+                    <li><a href="/lab5">Пятая лабораторная</a></li>
+                    <li><a href="/lab6">Шестая лабораторная</a></li>
+                </ol>
+            </div>
+            <img class="oak" src="'''+oak+'''">
         </main>
         <footer>
-            <div>Гаврилов Дмитрий Дмитриевич, ФБИ-21, 3 курс, 2024</div>
+            <div class="fotterr">Гаврилов Дмитрий Дмитриевич, ФБИ-21, 3 курс, 2024</div>
         </footer>
     </html>
     '''
@@ -163,7 +220,7 @@ def lab1():
                         <a href="/lab1/counternull">Сброс счетчика</a>
                     </li>
                     <li>
-                        <a href="/lab1/created">Что то создано</a>
+                        <a href="/lab1/resurce">Ресурс (доп задание)</a>
                     </li>
                     <li>
                         <a href="/lab1/info">Перенаправление</a>
