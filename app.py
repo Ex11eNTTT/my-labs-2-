@@ -184,17 +184,22 @@ def index():
         </footer>
     </html>
     '''
+
+
 @app.route("/lab1")
 def lab1():
+    labb1css = url_for("static", filename="labb1.css")
+    oak = url_for("static", filename="Oak-Tree-PNG.png")
     return'''
         <!doctype html>
         <title>Лабораторная работа 1</title>
+        <link rel="stylesheet" href="'''+labb1css+'''">
         <html>
             <head>
                 <h1>НГТУ, ФБ, WEB-программирование,часть 2. Список лабораторных</h1>
             </head>
             <main>
-                <div>
+                <div class="flask">
                     Flask — фреймворк для создания веб-приложений на языке
                     программирования Python, использующий набор инструментов
                     Werkzeug, а также шаблонизатор Jinja2. Относится к категории так
@@ -202,61 +207,64 @@ def lab1():
                     веб-приложений, сознательно предоставляющих лишь самые базовые возможности.
                 </div>
                 <h2>Списки роутов</h2>
-                <ol>
-                    <li>
-                       <a href="/lab1/web">WEB</a> 
-                    </li>
-                    <li>
-                        <a href="/lab1/author">Автор</a>
-                    </li>
-                        
-                    <li>
-                        <a href="/lab1/oak">Дуб</a>
-                    </li>
-                    <li>
-                        <a href="/lab1/counter">Счетчик</a>
-                    </li>
-                    <li>
-                        <a href="/lab1/counternull">Сброс счетчика</a>
-                    </li>
-                    <li>
-                        <a href="/lab1/resurce">Ресурс (доп задание)</a>
-                    </li>
-                    <li>
-                        <a href="/lab1/info">Перенаправление</a>
-                    </li>
-                    <li>
-                        <a href="/index">Список</a>
-                    </li>
-                    <li>
-                        <a href="/lab1/zagolovki">Заголовки</a>
-                    </li>
-                    <li>
-                        <a href="/400">Ошибка 400</a>
-                    </li>
-                    <li>
-                        <a href="/401">Ошибка 401</a>
-                    </li>
-                    <li>
-                        <a href="/402">Ошибка 402</a>
-                    </li>
-                    <li>
-                        <a href="/403">Ошибка 403</a>
-                    </li>
-                    <li>
-                        <a href="/405">Ошибка 405</a>
-                    </li>
-                    <li>
-                        <a href="/418">Ошибка 418</a>
-                    </li>
-                    <li>
-                        <a href="/error_500">Ошибка 500</a>
-                    </li>
-                </ol>
-                <a href="/">Все лабы</a>
+                <div class="list">
+                    <ol>
+                        <li>
+                        <a href="/lab1/web">WEB</a> 
+                        </li>
+                        <li>
+                            <a href="/lab1/author">Автор</a>
+                        </li>
+                            
+                        <li>
+                            <a href="/lab1/oak">Дуб</a>
+                        </li>
+                        <li>
+                            <a href="/lab1/counter">Счетчик</a>
+                        </li>
+                        <li>
+                            <a href="/lab1/counternull">Сброс счетчика</a>
+                        </li>
+                        <li>
+                            <a href="/lab1/resurce">Ресурс (доп задание)</a>
+                        </li>
+                        <li>
+                            <a href="/lab1/info">Перенаправление</a>
+                        </li>
+                        <li>
+                            <a href="/index">Список</a>
+                        </li>
+                        <li>
+                            <a href="/lab1/zagolovki">Заголовки</a>
+                        </li>
+                        <li>
+                            <a href="/400">Ошибка 400</a>
+                        </li>
+                        <li>
+                            <a href="/401">Ошибка 401</a>
+                        </li>
+                        <li>
+                            <a href="/402">Ошибка 402</a>
+                        </li>
+                        <li>
+                            <a href="/403">Ошибка 403</a>
+                        </li>
+                        <li>
+                            <a href="/405">Ошибка 405</a>
+                        </li>
+                        <li>
+                            <a href="/418">Ошибка 418</a>
+                        </li>
+                        <li>
+                            <a href="/error_500">Ошибка 500</a>
+                        </li>
+                    </ol>
+                </div>
+                <a class="alllab" href="/">Все лабораторные работы</a>
+                <img class="oak" src="'''+oak+'''">
             </main>
             <footer>
-                <div>Гаврилов Дмитрий Дмитриевич, ФБИ-21, 3 курс, 2024</div>
+                <div class="fotterr">Гаврилов Дмитрий Дмитриевич, ФБИ-21, 3 курс, 2024</div>
             </footer>
         </html>
         '''
