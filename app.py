@@ -115,11 +115,11 @@ def index():
         <main>
             <ol>
                 <li><a href="/lab1">Первая лабораторная</a></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li><a href="/lab2">Вторая лабораторная</a></li>
+                <li><a href="/lab3">Третья лабораторная</a></li>
+                <li><a href="/lab4">Четвертая лабораторная</a></li>
+                <li><a href="/lab5">Пятая лабораторная</a></li>
+                <li><a href="/lab6">Шестая лабораторная</a></li>
             </ol>
         </main>
         <footer>
@@ -144,6 +144,58 @@ def lab1():
                     называемых микрофреймворков — минималистичных каркасов
                     веб-приложений, сознательно предоставляющих лишь самые базовые возможности.
                 </div>
+                <h2>Списки роутов</h2>
+                <ol>
+                    <li>
+                       <a href="/lab1/web">WEB</a> 
+                    </li>
+                    <li>
+                        <a href="/lab1/author">Автор</a>
+                    </li>
+                        
+                    <li>
+                        <a href="/lab1/oak">Дуб</a>
+                    </li>
+                    <li>
+                        <a href="/lab1/counter">Счетчик</a>
+                    </li>
+                    <li>
+                        <a href="/lab1/counternull">Сброс счетчика</a>
+                    </li>
+                    <li>
+                        <a href="/lab1/created">Что то создано</a>
+                    </li>
+                    <li>
+                        <a href="/lab1/info">Перенаправление</a>
+                    </li>
+                    <li>
+                        <a href="/index">Список</a>
+                    </li>
+                    <li>
+                        <a href="/lab1/zagolovki">Заголовки</a>
+                    </li>
+                    <li>
+                        <a href="/400">Ошибка 400</a>
+                    </li>
+                    <li>
+                        <a href="/401">Ошибка 401</a>
+                    </li>
+                    <li>
+                        <a href="/402">Ошибка 402</a>
+                    </li>
+                    <li>
+                        <a href="/403">Ошибка 403</a>
+                    </li>
+                    <li>
+                        <a href="/405">Ошибка 405</a>
+                    </li>
+                    <li>
+                        <a href="/418">Ошибка 418</a>
+                    </li>
+                    <li>
+                        <a href="/error_500">Ошибка 500</a>
+                    </li>
+                </ol>
                 <a href="/">Все лабы</a>
             </main>
             <footer>
