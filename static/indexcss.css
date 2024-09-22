@@ -39,8 +39,8 @@ li{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: darkcyan;
     border: 1px solid black;
-    left: 1px;
-    right: 1px;
+    left: 0px;
+    right: 0px;
     text-align: right;
 }
 

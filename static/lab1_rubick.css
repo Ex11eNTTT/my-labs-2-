@@ -1,0 +1,105 @@
+html{
+    background: linear-gradient(#1c5b61,rgb(255, 255, 255));
+    height: 100%;
+}
+
+.rubick_image{
+    position: absolute;
+    width: 230px;
+    height: auto;
+    right: 380px;
+    opacity: 0.7;
+}
+.rubick_image2{
+    position: absolute;
+    top: 340px;
+    left: 350px;
+    width: 230px;
+    height: auto;
+    opacity: 0.7;
+}
+.rubick_image3{
+    position: absolute;
+    width: 230px;
+    height: auto;
+    top: 610px;
+    right: 380px;
+    opacity: 0.7;
+}
+
+a{
+    color: rgb(39, 73, 63);
+    transition-duration: 600ms;
+    position: absolute;
+    bottom: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+a:hover{
+    color: #3fed09;
+    transition-duration: 600ms;
+}
+
+h1{
+    text-align: center;
+    color: rgb(37, 39, 45);
+    opacity: 1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fotterr{
+    position: absolute;
+    bottom: 0px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: darkcyan;
+    border: 1px solid black;
+    left: 0px;
+    right: 0px;
+    text-align: right;
+}
+
+.firsttext{
+    width: 700px;
+    text-align: justify;
+    position: absolute;
+    text-indent: 20px;
+    left: 160px;
+    font-size: 26px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.secondtext{
+    width: 700px;
+    text-align: justify;
+    position: absolute;
+    text-indent: 20px;
+    right: 160px;
+    top: 300px;
+    font-size: 26px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.thirsttext{
+    width: 700px;
+    text-align: justify;
+    position: absolute;
+    text-indent: 20px;
+    top: 550px;
+    left: 160px;
+    font-size: 26px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.error{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: absolute;
+    left: 25%;
+    font-size: 50px;
+    top: 30%;
+}
+
+.oak{
+    position: absolute;
+    bottom: 0px;
+    right: 50px;
+}

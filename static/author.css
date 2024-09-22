@@ -1,0 +1,29 @@
+html{
+    background: linear-gradient(#1c5b61,rgb(255, 255, 255));
+    height: 100%;
+}
+
+.authordiv{
+    position: absolute;
+    left: 19%;
+    top: 17%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    color: rgb(37, 39, 45);
+}
+
+a{
+    color: rgb(39, 73, 63);
+    transition-duration: 600ms;
+}
+
+a:hover{
+    color: #3fed09;
+    transition-duration: 600ms;
+}
+
+.oaktree{
+    position: absolute;
+    right: 1px;
+    bottom: 0px;
+}

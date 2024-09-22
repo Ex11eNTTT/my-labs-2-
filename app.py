@@ -12,19 +12,28 @@ def start():
                         </html>""", 200 , {'X-Server': 'sample', 'Content-Type': 'text/plain; charset=utf-8'}
 @app.route("/lab1/author")
 def author():
+    authorcss = url_for("static", filename='author.css')
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
     name = "Гаврилов Дмитрий Дмитриевич"
     group = "ФБИ-21"
     faculty = "ФБ"
     
-    return """<!doctype html>
+    return '''
+        <!doctype html>
+        <link rel="stylesheet" href="'''+ authorcss +'''">
         <html>
             <body>
-                <p>Студент: """ + name + """<p>
-                <p>Группа: """ + group + """</p>
-                <p>Факультет: """ + faculty + """</p>
-                <a href="/lab1/web">web</a>
+                <div class="authordiv">
+                    <p>Студент: "''' + name + ''' "<p>
+                    <p>Группа: "''' + group + '''"</p>
+                    <p>Факультет: "''' + faculty + '''"</p>
+                    <a href="/lab1/web">web</a>
+                </div>
+                <img class="oaktree" src="'''+oak+'''">
             </body>
-            </html>"""
+            </html>'''
+
+
 @app.route("/lab1/oak")
 def oak():
     path = url_for("static", filename="oak.jpg")
@@ -42,27 +51,39 @@ def oak():
 count = 0
 @app.route('/lab1/counter')
 def counter():
+    countercss = url_for("static", filename="counter.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
     global count
     count += 1
     return'''
 <!doctype html>
+<link rel="stylesheet" href="'''+ countercss +'''">
 <html>
     <body>
-        Сколько раз вы сюда заходили: ''' + str(count) + '''
-        <a href="/lab1/counternull">Обнуление счетчика</a>
+        <div class="firstcounter">
+            Сколько раз вы сюда заходили: ''' + str(count) + '''
+            <a href="/lab1/counternull">Обнуление счетчика</a>
+        </div>
+        <img class="oaktree" src="'''+oak+'''">
     </body>
 </html>
 '''
 @app.route('/lab1/counternull')
 def counternull():
+    countercss = url_for("static", filename="counter.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
     global count
     count = 0
     return'''
 <!doctype html>
+<link rel="stylesheet" href="'''+ countercss +'''">
 <html>
     <body>
-        Страница было очищена
-        <a href="/lab1/counter">Обратно на страницу</a>
+        <div class="secondcounter">
+            Страница было очищена
+            <a href="/lab1/counter">Обратно на страницу</a>
+        </div>
+        <img class="oaktree" src="'''+oak+'''">
     </body>
 </html>
 '''
@@ -77,59 +98,85 @@ def info():
 create = 0
 @app.route("/lab1/created")
 def created():
+    countercss = url_for("static", filename="counter.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
     global create
     if create == 0:
         create = 1
         return'''
         <!doctype html>
+        <link rel="stylesheet" href="'''+ countercss +'''">
         <html>
             <body>
-                <h1>Ресурс успешно создан!</h1>
+                <div class="resurscreate">
+                    <h1>Ресурс успешно создан!</h1>
+                </div>
+                <img class="treere"src="'''+oak+'''">
             </body>
         </html>
         ''',201
     else:
         return'''
         <!doctype html>
+        <link rel="stylesheet" href="'''+ countercss +'''">
         <html>
             <body>
-                <h1>Отказано! Ресурс уже есть</h1>
+                <div class="resurscreate">
+                    <h1>Отказано! Ресурс уже есть</h1>
+                </div>
+                <img class="treere"src="'''+oak+'''">
             </body>
         </html>
         ''',400
 @app.route("/lab1/delete")
 def deleted():
+    countercss = url_for("static", filename="counter.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
     global create
     if create == 1:
         create = 0
         return'''
         <!doctype html>
+        <link rel="stylesheet" href="'''+ countercss +'''">
         <html>
             <body>
-                <h1>Ресурс удален!</h1>
+                <div class="resurscreate">
+                    <h1>Ресурс удален!</h1>
+                </div>
+                <img class="treere"src="'''+oak+'''">
             </body>
         </html>
         ''',200
     else:
         return'''
         <!doctype html>
+        <link rel="stylesheet" href="'''+ countercss +'''">
         <html>
             <body>
-                <h1>Ресурс отсутсвует!</h1>
+                <div class="resurscreate">
+                    <h1>Ресурс отсутсвует!</h1>
+                </div>
+                <img class="treere"src="'''+oak+'''">
             </body>
         </html>
         ''',400
     
 @app.route("/lab1/resurce")
 def resurce():
+    countercss = url_for("static", filename="counter.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
     global create
     return'''
     <!doctype html>
+    <link rel="stylesheet" href="'''+ countercss +'''">
     <html>
         <body>
-            <div>Статус ресурса: '''+str(create)+'''</div>
-            <p><a href="/lab1/created">Создать ресурс!</a></p>
-            <p><a href="/lab1/delete">Удалить ресурс!</a></p>
+            <div class="resurcemain">
+                <div>Статус ресурса: '''+str(create)+'''</div>
+                <p><a href="/lab1/created">Создать ресурс!</a></p>
+                <p><a href="/lab1/delete">Удалить ресурс!</a></p>
+            </div>
+            <img class="oaktree2" src="'''+oak+'''">
         </body>
     </html>
     ''',200
@@ -270,27 +317,135 @@ def lab1():
         '''
 @app.route("/400")
 def l400():
-    return "Допущена синтаксическая ошибка", 400
+    countercss = url_for("static", filename="lab1_rubick.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+    <link rel="stylesheet" href="'''+countercss+'''">
+        <head>
+        </head>
+        <main>
+            <div class="error">
+                Допущена синтаксическая ошибка
+            </div>
+            <img class="oak" src="'''+oak+'''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''' , 400
 
 @app.route("/401")
 def l401():
-    return "Требуется аутентификация", 401
+    countercss = url_for("static", filename="lab1_rubick.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+    <link rel="stylesheet" href="'''+countercss+'''">
+        <head>
+        </head>
+        <main>
+            <div class="error">
+                Требуется аутентификация
+            </div>
+            <img class="oak" src="'''+oak+'''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''' , 401
 
 @app.route("/402")
 def l402():
-    return "Требуется оплата", 402
+    countercss = url_for("static", filename="lab1_rubick.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+    <link rel="stylesheet" href="'''+countercss+'''">
+        <head>
+        </head>
+        <main>
+            <div class="error">
+                Требуется оплата
+            </div>
+            <img class="oak" src="'''+oak+'''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''', 402
 
 @app.route("/403")
 def l403():
-    return "Нету полномочий", 403
+    countercss = url_for("static", filename="lab1_rubick.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+    <link rel="stylesheet" href="'''+countercss+'''">
+        <head>
+        </head>
+        <main>
+            <div class="error">
+                Нету полномочий
+            </div>
+            <img class="oak" src="'''+oak+'''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''', 403
 
 @app.route("/405")
 def l405():
-    return "Недопустимый метод", 405
+    countercss = url_for("static", filename="lab1_rubick.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+    <link rel="stylesheet" href="'''+countercss+'''">
+        <head>
+        </head>
+        <main>
+            <div class="error">
+                Недопустимый метод
+            </div>
+            <img class="oak" src="'''+oak+'''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''', 405
 
 @app.route("/418")
 def l418():
-    return "Я чайник", 418
+    countercss = url_for("static", filename="lab1_rubick.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+    <link rel="stylesheet" href="'''+countercss+'''">
+        <head>
+        </head>
+        <main>
+            <div class="error">
+                Я чайник
+            </div>
+            <img class="oak" src="'''+oak+'''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''', 418
 
 @app.route("/error_500")
 def error_go():
@@ -299,41 +454,62 @@ def error_go():
 
 @app.errorhandler(500)
 def error_500(err):
-    return "Внутренняя ошибка сервера", 500
+    countercss = url_for("static", filename="lab1_rubick.css")
+    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    return'''
+    <!doctype html>
+    <title>НГТУ, ФБ, Лабораторные работы</title>
+    <html>
+    <link rel="stylesheet" href="'''+countercss+'''">
+        <head>
+        </head>
+        <main>
+            <div class="error">
+                Внутренняя ошибка сервера
+            </div>
+            <img class="oak" src="'''+oak+'''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''', 500
 
 @app.route("/lab1/zagolovki")
 def lab11():
-    path = url_for("static", filename='rubick.jpg')
+    path = url_for("static", filename='rubick.png')
     path_css = url_for("static", filename='lab1_rubick.css')
     return'''
         <!doctype html>
+        <link rel="stylesheet" href="'''+path_css+'''">
         <title>Лабораторная работа 1</title>
         <html>
             <head>
                 <h1>НГТУ, ФБ, WEB-программирование,часть 2. Список лабораторных</h1>
             </head>
             <main>
-                <p>
+                <p class="firsttext">
                     История создания самой известной и оригинальной игрушки-головоломки
                     начинается с марта 1970 года. Американский изобретатель Ларри Николс
                     изобрел головоломку в виде кубика 2х2х2 с подвижными, поворачивающимися частями,
                     и сразу же запатентовал свое изобретение.
                 </p>
-                <p>
+                <p class="secondtext">
                     Классический кубик Рубика состоит из граней 3х3, каждая окрашена в один из 6 цветов.
                     Игрушка выполнена из пластика, подходит для игр детям от 6-ти лет. Каждый маленький куб вращается вокруг 3
                     внутренних осей. Каждая грань состоит из 9 квадратиков, всего их 54.
                 </p>
-                <p>
+                <p class="thirsttext">
                     Сегодня без труда можно найти специальные алгоритмы, на YouTube-каналах множество видео-уроков,
                     просмотрев которые, вы сможете без труда собрать кубик Рубика, постоянно совершенствуя свое мастерство,
                     увеличивая скорость сборки. Классическая развивающая игрушка поможет занять руки и голову не только ребенка, но и родителей.
                 </p>
-                <a href="/">Все лабы</a>
+                <a href="/">Все лабораторные</a>
                 <img class="rubick_image" src="'''+path+'''">
+                <img class="rubick_image2" src="'''+path+'''">
+                <img class="rubick_image3" src="'''+path+'''">
             </main>
             <footer>
-                <div>Гаврилов Дмитрий Дмитриевич, ФБИ-21, 3 курс, 2024</div>
+                <div class="fotterr">Гаврилов Дмитрий Дмитриевич, ФБИ-21, 3 курс, 2024</div>
             </footer>
         </html>
         ''',200, {'Content-language': 'ru', 'From': 'bilobilo :))))', 'Allow':'GET'}
