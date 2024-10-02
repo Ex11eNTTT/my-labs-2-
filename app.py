@@ -575,6 +575,22 @@ def redcalc():
 def redcalccc(a):
     return redirect(f"/lab2/calc/{a}/1")
 
+books = [{'name': 'Девушка во льду', 'author': 'Роберт Брындза', 'genre': 'Детектив', 'countlist': 200},
+         {'name': 'Лунный камень', 'author': 'Уилки Коллинз', 'genre': 'Детектив', 'countlist': 144},
+         {'name': 'Ребекка', 'author': 'Дафна Дюморье', 'genre': 'Детектив', 'countlist': 60},
+         {'name': 'Талантливый мистер Рипли', 'author': 'Патриция Хайсмит', 'genre': 'Детектив', 'countlist': 300},
+         {'name': 'Властелин Колец', 'author': 'Джон Рональд Руэл Толкин', 'genre': 'Фентези', 'countlist': 500},
+         {'name': 'Геральт', 'author': 'Анджей Сапковский', 'genre': 'Фентези', 'countlist': 250},
+         {'name': 'Колдовской мир', 'author': 'Андрэ Нортон', 'genre': 'Фентези', 'countlist': 200},
+         {'name': 'Конан', 'author': 'Роберт Ирвин', 'genre': 'Фентези', 'countlist': 210},
+         {'name': 'Тёмный эльф', 'author': 'Роберт Энтони', 'genre': 'Фентези', 'countlist': 230},
+         {'name': 'Сага о копье', 'author': 'Маргарет Уэйс, Трейси Хикмен', 'genre': 'Фентези', 'countlist': 200}]
+
+@app.route('/lab2/books')
+def bookss():
+    return render_template('books.html', books=books)
+
+
 
 @app.route('/lab2/ad_flower/<name>')
 def addflower(name):

@@ -1,0 +1,11 @@
+{%extends "base.html"%}
+
+{%block lab%} Лабораторная работа 2 {%endblock%}
+
+{%block main%}
+    <ul>
+        {%for books in books%}
+        <li>{{ loop.index }} - Название: {{books.name}}, Автор: {{books.author}}, Жанр: {{books.genre}}, Кол-во страниц: {{books.countlist}}</li>
+        {% endfor %}
+    </ul>
+{%endblock%}
