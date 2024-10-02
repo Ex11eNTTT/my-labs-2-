@@ -513,3 +513,15 @@ def lab11():
             </footer>
         </html>
         ''',200, {'Content-language': 'ru', 'From': 'bilobilo :))))', 'Allow':'GET'}
+
+
+
+
+# Лабораторная работа 2
+@app.route('/lab2/a')
+def a():
+    return 'без слеша'
+
+@app.route('/lab2/a/')
+def a2():
+    return 'со слешем'
