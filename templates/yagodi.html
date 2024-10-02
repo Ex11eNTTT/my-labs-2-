@@ -3,9 +3,10 @@
 {%block lab%} Лабораторная работа 2 {%endblock%}
 
 {%block main%}
-    {% for f in yagoda %}
-        <div>{{f.name}}</div>
-        <div><img src="{{url_for('static', filename='{{f}}')}}"></div>
-        <div>{{f.description}}</div>
+    {% for w in yagoda %}
+        <div style="font-size: 40px; margin-bottom: 10px; text-align: center">{{w.name}}</div>
+        <img src={{w.photo}} style="height: 400px; width: auto; margin-left: 600px">
+        <div style="width: 600px; font-size: 20px; text-indent: 25px; text-align: justify; margin-bottom: 10px; margin-left: 600px;
+        margin-top: 20px">{{w.description}}</div>
     {%endfor%}
 {%endblock%}
