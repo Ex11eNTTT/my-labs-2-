@@ -561,8 +561,19 @@ def flowersdelete():
             </body>
         </html>
         '''
+@app.route('/lab2/calc/<int:a>/<int:b>')
+def calc(a,b):
+    first = a
+    second = b
+    return render_template('calc.html', first = first, second = second)
 
+@app.route('/lab2/calc/')
+def redcalc():
+    return redirect("/lab2/calc/1/1")
 
+@app.route('/lab2/calc/<int:a>')
+def redcalccc(a):
+    return redirect(f"/lab2/calc/{a}/1")
 
 
 @app.route('/lab2/ad_flower/<name>')
