@@ -591,6 +591,15 @@ def bookss():
     return render_template('books.html', books=books)
 
 
+spisokyagod = [{'name': 'Арбуз', 'photo': 'watermelon.png', 'description':
+                'Это самая крупная в мире ягодная культура. Вес отдельных плодов достигает 30 кг. Арбузы'
+                'используются не только в пищу: их целебные свойства были оценены косметологами. На основе'
+                'измельченных косточек делают кремы и скрабы, антицеллюлитные средства.'}]
+@app.route('/lab2/yagodi')
+def yagodis():
+    return render_template('yagodi.html', yagoda = spisokyagod)
+
+
 
 @app.route('/lab2/ad_flower/<name>')
 def addflower(name):

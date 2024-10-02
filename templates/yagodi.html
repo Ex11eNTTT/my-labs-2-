@@ -1,0 +1,11 @@
+{%extends "base.html"%}
+
+{%block lab%} Лабораторная работа 2 {%endblock%}
+
+{%block main%}
+    {% for f in yagoda %}
+        <div>{{f.name}}</div>
+        <div><img src="{{url_for('static', filename='{{f}}')}}"></div>
+        <div>{{f.description}}</div>
+    {%endfor%}
+{%endblock%}
