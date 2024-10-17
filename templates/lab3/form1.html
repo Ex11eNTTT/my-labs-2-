@@ -6,7 +6,7 @@
     {%if user%}
     <div>Добро пожаловать {{user}}!</div>
     <div>Ваш пол: {{sex}}</div>
-    <div>Ваш возраст: {{age}}</div>
+    <div>Ваш возраст: {{'мужской' if sex == 'male' else 'женский'}}</div>
     <div>
         <a href="/lab3/form1">Заново</a>
     </div>
