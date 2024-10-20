@@ -15,7 +15,7 @@ def a2():
 def calc(a,b):
     first = a
     second = b
-    return render_template('calc.html', first = first, second = second)
+    return render_template('lab2/calc.html', first = first, second = second)
 
 @lab2.route('/lab2/calc/')
 def redcalc():
@@ -38,29 +38,29 @@ books = [{'name': 'Девушка во льду', 'author': 'Роберт Бры
 
 @lab2.route('/lab2/books')
 def bookss():
-    return render_template('books.html', books=books)
+    return render_template('lab2/books.html', books=books)
     
-spisokyagod = [{'name': 'Арбуз', 'photo': '/static/watermelon.png', 'description':
+spisokyagod = [{'name': 'Арбуз', 'photo': '/static/lab2/watermelon.png', 'description':
                 'Это самая крупная в мире ягодная культура. Вес отдельных плодов достигает 30 кг. Арбузы'
                 'используются не только в пищу: их целебные свойства были оценены косметологами. На основе'
                 'измельченных косточек делают кремы и скрабы, антицеллюлитные средства.'},
-                {'name': 'Барбис', 'photo': '/static/barbaris.png', 'description': 'Брусника — низкорослый вечнозеленый кустарник'
+                {'name': 'Барбис', 'photo': '/static/lab2/barbaris.png', 'description': 'Брусника — низкорослый вечнозеленый кустарник'
                   'с небольшими ягодами ярко-красного цвета. Это дикая культура растет в условиях умеренного климата: в тундре и таежных лесах.'
                     'Полезными свойствами обладают все части растения: побеги, стебли, листья, ягоды. Плоды предпочитают потреблять сырыми: в '
-                    'таком виде они сохраняют максимум витаминов.'},{'name': 'Голубика', 'photo': '/static/golubika.png', 'description': 'Вишня — это дерево или кустарник'
+                    'таком виде они сохраняют максимум витаминов.'},{'name': 'Голубика', 'photo': '/static/lab2/golubika.png', 'description': 'Вишня — это дерево или кустарник'
                   'с несколькими стволами (в зависимости от сорта). Ягоды вишни — овальные с косточкой внутри.'
                     'Созревание ягод происходит в период с июня по июль, но на одном дереве все ягоды созревают практически одновременно.'},{
-                        'name': 'Брусника', 'photo': '/static/brusnika.png', 'description': 'Брусника — низкорослый вечнозеленый кустарник с небольшими'
+                        'name': 'Брусника', 'photo': '/static/lab2/brusnika.png', 'description': 'Брусника — низкорослый вечнозеленый кустарник с небольшими'
                           'ягодами ярко-красного цвета. Это дикая культура растет в условиях умеренного климата: в тундре и таежных лесах. Полезными'
                             'свойствами обладают все части растения: побеги, стебли, листья, ягоды. Плоды предпочитают потреблять сырыми: в таком виде'
                               'они сохраняют максимум витаминов.'
-                    },{'name': 'Клубника', 'photo': '/static/klubnika.png', 'description': 'Клубника — многолетняя травянистая культура. Оно относится к'
+                    },{'name': 'Клубника', 'photo': '/static/lab2/klubnika.png', 'description': 'Клубника — многолетняя травянистая культура. Оно относится к'
                         'семейству розоцветных. Ягоды на стебле появляются через 20-26 дней с начала цветения.'
                     }]
 
 @lab2.route('/lab2/yagodi')
 def yagodis():
-    return render_template('yagodi.html', yagoda = spisokyagod)
+    return render_template('lab2/yagodi.html', yagoda = spisokyagod)
 
 
 
@@ -73,16 +73,16 @@ def example():
     numbergroup = 'ФБИ-21'
     fruits = [{'name':'яблоки', 'price':100},{'name':'груши', 'price':120},{'name':'апельсины', 'price':80},
               {'name':'мандарины', 'price':95},{'name':'манго', 'price':321},]
-    return render_template('example.html', name=student, lab=numberlab,  course = numbercourse, group = numbergroup, fruits=fruits)
+    return render_template('lab2/example.html', name=student, lab=numberlab,  course = numbercourse, group = numbergroup, fruits=fruits)
 
 @lab2.route('/lab2/')
 def laba():
-    return render_template('lab2.html')
+    return render_template('lab2/lab2.html')
 
 @lab2.route('/lab2/filtres')
 def filtres():
     phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
-    return render_template('filter.html', phrase=phrase)
+    return render_template('lab2/filter.html', phrase=phrase)
 
 
 
@@ -92,16 +92,16 @@ flower_list=[{'name':'роза', 'price': 100},{'name':'тюльпан', 'price'
 @lab2.route('/lab2/flowers/<int:flower_id>')
 def flowers(flower_id):
     if flower_id >= len(flower_list)+1:
-        return render_template('ifflower.html'), 404
+        return render_template('lab2/ifflower.html'), 404
     else:
         selected_flower = flower_list[flower_id-1]
         selected_flowerlol = f"Название: {selected_flower['name']}, Цена: {selected_flower['price']}"
-        return render_template('ifflower2.html', selected_flowerlol = selected_flowerlol)
+        return render_template('lab2/ifflower2.html', selected_flowerlol = selected_flowerlol)
 
 @lab2.route('/lab2/flowers_delete')
 def flowersdelete():
     flower_list.clear()
-    return  render_template('flowerdelete.html')
+    return  render_template('lab2/flowerdelete.html')
 
 @lab2.route('/lab2/flowers_delete/<int:delete_flower_id>')
 
@@ -141,8 +141,8 @@ def addflower2(name, price):
 
 @lab2.route('/lab2/ad_flower/')
 def addflowerlost():
-    return render_template('addflowerlist.html'), 400
+    return render_template('lab2/addflowerlist.html'), 400
 
 @lab2.route('/lab2/flower/countandnames')
 def countflowers():
-    return render_template('flowers.html', flowers=flower_list)
+    return render_template('lab2/flowers.html', flowers=flower_list)

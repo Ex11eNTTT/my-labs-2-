@@ -30,8 +30,8 @@ def not_found(err):
 @app.route("/")
 @app.route("/index")
 def index():
-    indexcss = url_for('static', filename="indexcss.css")
-    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    indexcss = url_for('static', filename="lab1/indexcss.css")
+    oak = url_for("static", filename='lab1/Oak-Tree-PNG.png')
     return'''
     <!doctype html>
     <title>НГТУ, ФБ, Лабораторные работы</title>

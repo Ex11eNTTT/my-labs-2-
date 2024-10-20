@@ -14,8 +14,8 @@ def start():
 
 @lab1.route("/lab1/author")
 def author():
-    authorcss = url_for("static", filename='author.css')
-    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    authorcss = url_for("static", filename='lab1/author.css')
+    oak = url_for("static", filename='lab1/Oak-Tree-PNG.png')
     name = "Гаврилов Дмитрий Дмитриевич"
     group = "ФБИ-21"
     faculty = "ФБ"
@@ -37,8 +37,8 @@ def author():
 
 @lab1.route("/lab1/oak")
 def oak():
-    path = url_for("static", filename="oak.jpg")
-    path_css = url_for("static", filename='lab1.css')
+    path = url_for("static", filename="lab1/oak.jpg")
+    path_css = url_for("static", filename='lab1/lab1.css')
     return'''
 <!doctype html>
 <link rel="stylesheet" href="'''+path_css+'''">
@@ -54,8 +54,8 @@ def oak():
 count = 0
 @lab1.route('/lab1/counter')
 def counter():
-    countercss = url_for("static", filename="counter.css")
-    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    countercss = url_for("static", filename="lab1/counter.css")
+    oak = url_for("static", filename='lab1/Oak-Tree-PNG.png')
     global count
     count += 1
     return'''
@@ -75,8 +75,8 @@ def counter():
 
 @lab1.route('/lab1/counternull')
 def counternull():
-    countercss = url_for("static", filename="counter.css")
-    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    countercss = url_for("static", filename="lab1/counter.css")
+    oak = url_for("static", filename='lab1/Oak-Tree-PNG.png')
     global count
     count = 0
     return'''
@@ -102,8 +102,8 @@ def info():
 create = 0
 @lab1.route("/lab1/created")
 def created():
-    countercss = url_for("static", filename="counter.css")
-    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    countercss = url_for("static", filename="lab1/counter.css")
+    oak = url_for("static", filename='lab1/Oak-Tree-PNG.png')
     global create
     if create == 0:
         create = 1
@@ -136,8 +136,8 @@ def created():
 
 @lab1.route("/lab1/delete")
 def deleted():
-    countercss = url_for("static", filename="counter.css")
-    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    countercss = url_for("static", filename="lab1/counter.css")
+    oak = url_for("static", filename='lab1/Oak-Tree-PNG.png')
     global create
     if create == 1:
         create = 0
@@ -170,8 +170,8 @@ def deleted():
 
 @lab1.route("/lab1/resurce")
 def resurce():
-    countercss = url_for("static", filename="counter.css")
-    oak = url_for("static", filename='Oak-Tree-PNG.png')
+    countercss = url_for("static", filename="lab1/counter.css")
+    oak = url_for("static", filename='lab1/Oak-Tree-PNG.png')
     global create
     return'''
     <!doctype html>
@@ -191,8 +191,8 @@ def resurce():
 
 @lab1.route("/lab1")
 def lab():
-    labb1css = url_for("static", filename="labb1.css")
-    oak = url_for("static", filename="Oak-Tree-PNG.png")
+    labb1css = url_for("static", filename="lab1/labb1.css")
+    oak = url_for("static", filename="lab1/Oak-Tree-PNG.png")
     return'''
         <!doctype html>
         <title>Лабораторная работа 1</title>
@@ -275,8 +275,8 @@ def lab():
 
 @lab1.route("/lab1/zagolovki")
 def lab11():
-    path = url_for("static", filename='rubick.png')
-    path_css = url_for("static", filename='lab1_rubick.css')
+    path = url_for("static", filename='lab1/rubick.png')
+    path_css = url_for("static", filename='lab1/lab1_rubick.css')
     return'''
         <!doctype html>
         <link rel="stylesheet" href="'''+path_css+'''">
