@@ -83,3 +83,31 @@ def settings():
     fontsize = request.cookies.get('fontsize')
     resp = make_response(render_template('lab3/settings.html', color=color, backgroundcolor=backgroundcolor, fontsize=fontsize))
     return resp
+
+@lab3.route('/lab3/ticket')
+def ticket():
+    return render_template('lab3/ticket.html')
+
+
+@lab3.route('/lab3/pay_ticket')
+def pay_ticket():
+    price_ticket = 0
+    yearsold = request.args.get('yearsold')
+    if int(yearsold) > 18:
+        price_ticket = 1000
+        yearbilet = 'Взрослый'
+    else:
+        price_ticket = 700
+        yearbilet = 'Детский'
+    
+    if request.args.get('polka') == 'нижняя' or request.args.get('polka') == 'нижняя боковая':
+        price_ticket += 100
+    
+    if request.args.get('withunderwear') == 'Да':
+        price_ticket += 75
+
+    if request.args.get('withbag') == 'Да':
+        price_ticket += 250
+    if request.args.get('withstrahovka') == 'Да':
+        price_ticket += 150
+    return render_template('/lab3/ticket_pay.html',price_ticket = price_ticket, yearbilet = yearbilet )

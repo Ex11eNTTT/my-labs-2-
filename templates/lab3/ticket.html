@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 3{%endblock%}
+
+
+{%block main%}
+    <h1>Билеты</h1>
+    <form action="/lab3/pay_ticket">
+        <div style="margin-bottom: 15px;">
+            <label>ФИО пасажира:</label>
+            <input type="text" name="FIO" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Полка:</label>
+            <input type="radio" name="polka" value="нижняя" checked>нижняя
+            <input type="radio" name="polka" value="верхняя">верхняя
+            <input type="radio" name="polka" value="верхняя боковая">верхняя боковая
+            <input type="radio" name="polka" value="нижняя боковая">нижняя боковая
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>С бельем:</label>
+            <input type="radio" name="withunderwear" value="Да">Да
+            <input type="radio" name="withunderwear"  value="Нет" checked>Нет
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>С багажем:</label>
+            <input type="radio" name="withbag" value="Да">Да
+            <input type="radio" name="withbag" checked value="Нет">Нет
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Возраст пасажира:</label>
+            <input type="number" name="yearsold" required min="1" max="120">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Пункт выезда:</label>
+            <input type="text" name="Punkt1" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Пункт назначения:</label>
+            <input type="text" name="Punkt2" required>
+        </div style="margin-bottom: 15px;">
+        <div style="margin-bottom: 15px;">
+            <label>Дата поездки:</label>
+            <input type="date" name="Punkt2" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Нужна ли страховка:</label>
+            <input type="radio" name="withstrahovka"checked value="Да">Да
+            <input type="radio" name="withstrahovka" value="Нет">Нет
+        </div>
+        <div style="margin-bottom: 15px;">
+            <button type="submit">Заказать</button>
+        </div>
+    </form>
+{%endblock%}
