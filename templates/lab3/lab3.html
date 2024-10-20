@@ -4,7 +4,8 @@
 
 {%block main%}
     <h1>Формы<h1>
-    <div>Привет, <span style= "color: {{name_color}}">{{name}}</span>!</div>
+    <div>Привет, <span style= "color: {{name_color}}">{{name or 'Кто-то:)'}}</span>!</div>
+    <div>Тебе уже {{age or 'Сколько-то'}} лет</div>
     <div>Тема лобараторной - Формы. Список сделанных страниц:</div>
     <ol>
         <li><a href="/lab3/cookie">Куки</a></li>
