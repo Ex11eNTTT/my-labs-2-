@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 3{%endblock%}
+
+
+{%block main%}
+    <h1>Досутпные телефон по заданому ценнику: {{min}}&#8381; - {{max}}&#8381;</h1>
+    <ul>
+        {% for i in newlistphones %}
+        <li style="margin-bottom: 15px; font-size: 25px">{{loop.index}} Название
+             телефона {{i.name}},  цена - {{i.price}}&#8381;,  цвет - {{i.color}},  дата выпуска - {{i.date}} год</li>
+        {% endfor %}
+    </ul>
+{%endblock%}

@@ -119,3 +119,29 @@ def delete_new():
     resp.delete_cookie('backgroundcolor')
     resp.delete_cookie('color')
     return resp
+
+smartphones = [{'name': 'tel1', 'price': '100', 'color': 'blue', 'date': '2001'}, {'name': 'tel2', 'price': '110', 'color': 'red', 'date': '2002'},
+               {'name': 'tel3', 'price': '120', 'color': 'green', 'date': '1999'},{'name': 'tel4', 'price': '130', 'color': 'white', 'date': '2005'},
+               {'name': 'tel5', 'price': '140', 'color': 'yellow', 'date': '2012'},{'name': 'tel6', 'price': '150', 'color': 'purple', 'date': '2001'},
+               {'name': 'tel7', 'price': '160', 'color': 'blue', 'date': '2006'},{'name': 'tel8', 'price': '40', 'color': 'green', 'date': '2011'},
+               {'name': 'tel9', 'price': '60', 'color': 'blue', 'date': '2014'},{'name': 'tel10', 'price': '114', 'color': 'pink', 'date': '2022'},
+               {'name': 'tel11', 'price': '220', 'color': 'blue', 'date': '2024'},{'name': 'tel12', 'price': '223', 'color': 'blue', 'date': '2022'},
+               {'name': 'tel13', 'price': '100', 'color': 'blue', 'date': '2002'},{'name': 'tel14', 'price': '144', 'color': 'black', 'date': '2011'},
+               {'name': 'tel15', 'price': '300', 'color': 'blue', 'date': '2024'},{'name': 'tel16', 'price': '170', 'color': 'blue', 'date': '2022'},
+               {'name': 'tel17', 'price': '230', 'color': 'green', 'date': '2022'},{'name': 'tel18', 'price': '230', 'color': 'yellow', 'date': '2022'},
+               {'name': 'tel19', 'price': '400', 'color': 'black', 'date': '1985'},{'name': 'tel20', 'price': '400', 'color': 'black', 'date': '2013'},]
+
+@lab3.route('/lab3/phone')
+def phone():
+    return render_template('/lab3/phoones.html')
+
+
+@lab3.route('/lab3/phone_pay')
+def phone_price():
+    newlistphones = []
+    min = request.args.get('min')
+    max = request.args.get('max')
+    for phone in smartphones:
+        if phone['price'] >= min and phone['price'] <= max:
+            newlistphones.append(phone)
+    return render_template('/lab3/phonesready.html', newlistphones = newlistphones, min=min, max=max)
