@@ -10,8 +10,8 @@ app.register_blueprint(lab3)
 
 @app.errorhandler(404)
 def not_found(err):
-    path = url_for('static', filename='goblin.png')
-    path_css = url_for("static", filename='lab1.css')
+    path = url_for('static', filename='lab1/goblin.png')
+    path_css = url_for("static", filename='lab1/lab1.css')
     return'''
     <!doctype html>
     <link rel="stylesheet" href="'''+path_css+'''">

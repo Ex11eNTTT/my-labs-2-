@@ -111,3 +111,11 @@ def pay_ticket():
     if request.args.get('withstrahovka') == 'Да':
         price_ticket += 150
     return render_template('/lab3/ticket_pay.html',price_ticket = price_ticket, yearbilet = yearbilet )
+
+@lab3.route('/lab3/delete_new')
+def delete_new():
+    resp = make_response(redirect('/lab3/'))
+    resp.delete_cookie('fontsize')
+    resp.delete_cookie('backgroundcolor')
+    resp.delete_cookie('color')
+    return resp
