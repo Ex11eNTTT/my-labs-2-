@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{%block lab%}Степень{%endblock%}
+
+
+{%block main%}
+    <h1>Степень</h1>
+    {%if error%}
+        {{error}}
+        <a href="/lab4/degree-form">Вернутся к форме</a><hr>
+    {%else%}
+    {{x1}} <sup>{{x2}}</sup> = {{result}}
+    <a href="/lab4/degree-form">Вернутся к форме</a><hr>
+    {%endif%}
+{%endblock%}
