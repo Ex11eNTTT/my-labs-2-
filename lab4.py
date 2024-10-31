@@ -177,3 +177,41 @@ def holod():
     temp = request.form.get('temp')
     session['temp'] = temp
     return redirect('/lab4/holod')
+
+
+
+@lab4.route('/lab4/zerno', methods=['GET', 'POST'])
+def zerno():
+    if request.method == 'GET':
+            return render_template('lab4/zerno.html')
+    
+
+    zerno = request.form.get('zerno')
+    col = request.form.get('col')
+    if zerno == 'yachmen':
+        zerno = 'ячмень'
+        price = 12345
+    elif zerno == 'oves':
+        zerno = 'овес'
+        price = 8522
+    elif zerno == 'psheno':
+        zerno = 'пшеница'
+        price = 8722
+    else:
+        zerno = 'рожь'
+        price = 14111
+
+        
+    if int(col) == 0:
+        error = "Вес может быть строго больше 0!"
+        return render_template('lab4/zerno.html', error=error)
+    elif int(col) > 500:
+        error = "Такого объема сейчас не в наличии"
+        return render_template('lab4/zerno.html', error=error)
+    elif int(col) < 50:
+        price = price * int(col)
+        return render_template('lab4/zerno.html', price=price, zerno=zerno)
+    else:
+        skidka = 'Скидка применена за большой объем'
+        price = price*int(col) - (price*int(col)*0.1)
+        return render_template('lab4/zerno.html', price=price, zerno=zerno, skidka=skidka)
