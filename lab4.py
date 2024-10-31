@@ -148,3 +148,32 @@ def login():
 def logout():
     session.pop('login', None)
     return redirect('/lab4/login')
+
+
+@lab4.route('/lab4/holod', methods = ['GET', 'POST'])
+def holod():
+    if request.method == 'GET':
+        if 'temp' in session:
+            temp = session['temp']
+            if int(temp)<(-12):
+                error = 'Не удалось установить температуру слишком низкое значение'
+                return  render_template('lab4/holod.html', error = error)
+            elif int(temp)>(-1):
+                error = 'Не удалось установить температуру слишком высокое значение'
+                return  render_template('lab4/holod.html', error = error)
+            elif int(temp)>(-12) and int(temp)<(-9):
+                znak = "❄️❄️❄️"
+                return render_template('lab4/holod.html', temp = temp, znak = znak)
+            elif int(temp)>(-8) and int(temp)<(-5):
+                znak = "❄️❄️"
+                return render_template('lab4/holod.html', temp = temp, znak = znak)
+            else:
+                znak = "❄️"
+                return render_template('lab4/holod.html', temp = temp, znak = znak)
+        else:
+            error = 'Не задана температура!'
+            return render_template('lab4/holod.html', error=error)
+    
+    temp = request.form.get('temp')
+    session['temp'] = temp
+    return redirect('/lab4/holod')

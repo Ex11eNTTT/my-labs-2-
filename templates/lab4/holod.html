@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 4{%endblock%}
+
+
+{%block main%}
+    <h1>Холодильник</h1>
+    <form method="post">
+        {%if error%}
+            <div>
+            Ошибка: {{error}}
+            </div>
+            <input type="number" name="temp" id="temp" required> °C
+            <button type="submit">Установить</button>
+        {%else%}
+            <div>
+                Установлена температура: {{temp}}{{znak}}<br>
+                <label for="temp">Установить новую температуру: </label>
+                <input type="number" name="temp" id="temp" required> °C
+                <button type="submit">Установить</button>
+            </div>
+            
+        {%endif%}
+    </form>
+{%endblock%}
