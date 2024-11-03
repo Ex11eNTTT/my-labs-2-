@@ -233,10 +233,10 @@ def holod():
             elif int(temp)>(-1):
                 error = 'Не удалось установить температуру слишком высокое значение'
                 return  render_template('lab4/holod.html', error = error)
-            elif int(temp)>(-12) and int(temp)<(-9):
+            elif int(temp)>=(-12) and int(temp)<=(-9):
                 znak = "❄️❄️❄️"
                 return render_template('lab4/holod.html', temp = temp, znak = znak)
-            elif int(temp)>(-8) and int(temp)<(-5):
+            elif int(temp)>=(-8) and int(temp)<=(-5):
                 znak = "❄️❄️"
                 return render_template('lab4/holod.html', temp = temp, znak = znak)
             else:
