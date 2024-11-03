@@ -185,7 +185,7 @@ def zerno():
     if request.method == 'GET':
             return render_template('lab4/zerno.html')
     
-
+#######################Укзать вес и возврат к странице!!!!!!!!!!!!! попробой переменные в начале error первее
     zerno = request.form.get('zerno')
     col = request.form.get('col')
     if zerno == 'yachmen':
@@ -201,7 +201,7 @@ def zerno():
         zerno = 'рожь'
         price = 14111
 
-        
+
     if int(col) == 0:
         error = "Вес может быть строго больше 0!"
         return render_template('lab4/zerno.html', error=error)
@@ -210,8 +210,9 @@ def zerno():
         return render_template('lab4/zerno.html', error=error)
     elif int(col) < 50:
         price = price * int(col)
-        return render_template('lab4/zerno.html', price=price, zerno=zerno)
+        return render_template('lab4/zerno.html', price=price, zerno=zerno, col=col)
     else:
         skidka = 'Скидка применена за большой объем'
-        price = price*int(col) - (price*int(col)*0.1)
-        return render_template('lab4/zerno.html', price=price, zerno=zerno, skidka=skidka)
+        skidkaint = (price*int(col)*0.1)
+        price = price*int(col) - skidkaint
+        return render_template('lab4/zerno.html', price=price, zerno=zerno, skidka=skidka, skidkaint = skidkaint, col=col)

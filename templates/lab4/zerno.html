@@ -6,7 +6,9 @@
     <h1>Заказ зерна</h1>
     <form method="post">
         {%if price%}
-        <div>Вы заказли {{zerno}} на сумму {{price}} рублей {%if skidka%}Скидка 10% за большой объем{%else%}{%endif%}</div>
+        <div>Вы заказли {{zerno}} на сумму {{price}} рублей, вес {{col}}т. {%if skidka%}Скидка 10% за большой объем,
+             размер скидки: {{skidkaint}} рублей{%else%}{%endif%}</div>
+        <div><a href="/lab4/zerno">Вернутся</a></div>
         {%else%}
         <label for="zerno">Выберите зерно: </label>
         <select id="zerno" name="zerno" required>
