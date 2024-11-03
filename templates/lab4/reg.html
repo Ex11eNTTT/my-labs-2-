@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 4{%endblock%}
+
+
+{%block main%}
+<h1>Регистрация</h1>
+
+<form method="post">
+    {%if regg%}
+    <div>Пользователь {{regg}} успешно зарегестрировался</div><br>
+    <a href="/lab4/login">Войти</a>
+    {%else%}
+    {%if error%}
+    <div>{{error}}</div>
+    {%else%}
+    {%endif%}
+    <label for="login">Введите логин: </label>
+    <input type="text" name="login" id="login" required><br>
+    <label for="password">Введите пароль: </label>
+    <input type="number" name="password" id="password" required><br>
+    <label for="sex">Ваш пол: </label>
+    <input type="radio" name="sex"checked value="male">Мужской
+    <input type="radio" name="sex" value="female">Женский<br>
+    <label for="realname">Введите ваше имя и фамилию: </label>
+    <input type="text" name="realname" id="realname" required><br>
+    <button type="submit">Зарегестрировать</button><br>
+    <a href="/lab4/login">Войти</a>
+</form>
+    {%endif%}
+
+{%endblock%}

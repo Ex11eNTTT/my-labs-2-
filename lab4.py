@@ -144,11 +144,83 @@ def login():
     error = 'Неверные логин и/или пароль!'
     return render_template('lab4/login.html', error=error, authorized=False, login=login)
 
-@lab4.route('/lab4/logout', methods=['POST'])
+
+@lab4.route('/lab4/reg', methods=['GET', 'POST'])
+def reg():
+    if request.method == 'GET':
+        return render_template('lab4/reg.html')
+    
+    login = request.form.get('login')
+    global users
+    error = ''
+
+    for user in users:
+        if login == user['login']:
+            error = 'Пользователь с таким логином уже занят!'
+            break  
+    
+    if error:
+        return render_template('lab4/reg.html', error=error)
+    
+    password = request.form.get('password')
+    sex = request.form.get('sex')
+    realname = request.form.get('realname')
+    new_user = {'login': login, 'password': password, 'sex': sex, 'realname': realname}
+    users.append(new_user)
+    
+    return render_template('lab4/reg.html', regg=realname)
+
+@lab4.route('/lab4/list_log')
+def list_log():
+    if request.method == 'GET':
+        if 'login' in session:
+            global users
+            return render_template('lab4/list_log.html', users=users)
+        else:
+            return redirect('/lab4/login')
+        
+
+@lab4.route('/lab4/log_delete', methods=['POST'])
+def log_delete():
+    global users
+    users = [user for user in users if user['login'] != session['login']]
+    return redirect('/lab4/logout')
+
+@lab4.route('/lab4/log_change', methods=['GET','POST'])
+def log_change():
+    if request.method == 'GET':
+        if 'login' in session:
+            return render_template('lab4/list_log.html', change = True)
+        else:
+            return redirect('/lab4/login')
+    password = request.form.get('password')
+    realname = request.form.get('realname')
+    global users
+    if password != '':
+        for user in users:
+            if user['login'] == session['login']:
+                user['password'] = password
+    if realname != '':
+        for user in users:
+            if user['login'] == session['login']:
+                user['realname'] = realname
+    return redirect('/lab4/list_log')
+
+
+
+
+
+@lab4.route('/lab4/logout', methods=['POST', 'GET'])
 def logout():
+    if request.method == 'GET':
+        if 'login' in session:
+            session.pop('login', None)
+            return redirect('/lab4/login')
+        else:
+            return redirect('/lab4/login')
+        
     session.pop('login', None)
     return redirect('/lab4/login')
-
 
 @lab4.route('/lab4/holod', methods = ['GET', 'POST'])
 def holod():

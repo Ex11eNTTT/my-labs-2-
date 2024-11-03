@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 4{%endblock%}
+
+
+{%block main%}
+<h1>Список пользователей</h1>
+{%for user in users%}
+    {{loop.index}} - Логин: {{user.login}}, имя :{{user.realname}}<br> 
+{%endfor%}
+    <form action="/lab4/log_delete" method="post">
+        <button type="submit">Удалить текущего пользователя</button>
+    </form>
+    {%if change%}
+    <div>Изменить данные</div>
+    <form action="/lab4/log_change" method="post">
+        <label for="password">Изменить пароль: </label>
+        <input type="number" name="password" id="password"><br>
+        <label for="realname">Изменить имя пользователя</label>
+        <input type="text" name="realname" id="realname"><br>
+        <button type="submit">Изменить</button><br>
+    </form>
+    {%else%}
+    <form action="/lab4/log_change" method="get">
+        <button type="submit">Изменить данные текущего пользователя</button>
+    </form>
+    {%endif%}
+{%endblock%}
