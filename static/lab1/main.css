@@ -24,3 +24,18 @@ footer{
     right: 0;
     text-align: right;
 }
+
+
+a{
+    color: rgb(39, 73, 63);
+    transition-duration: 600ms;
+}
+li{
+    margin-top: 10px;
+    color: rgb(19, 19, 19);
+}
+
+a:hover{
+    color: #3fed09;
+    transition-duration: 600ms;
+}

@@ -3,12 +3,15 @@
 
 
 {%block main%}
-    <h1>Деление чисел</h1>
+    <h1 style="margin-left:44%; font-size:40px; color:rgb(24, 6, 224)">Деление чисел</h1>
     {%if error%}
         {{error}}
-        <a href="/lab4/div-form">Вернутся к форме</a><hr>
+        <a href="/lab4/div-form">Вернутся к форме</a><br>
     {%else%}
-    {{x1}} / {{x2}} = {{result}}
-    <a href="/lab4/div-form">Вернутся к форме</a><hr>
+    <div style="border: 3px solid black; margin-left: 35%; border-radius:15px; height: 100px; width: 600px; padding-top: 60px; padding-left: 30px;
+    background-color:antiquewhite">
+        <span style="font-size: 50px; margin-left: 180px">{{x1}} / {{x2}} = {{result}}</span><br>
+    </div>
+    <a href="/lab4/div-form">Вернутся к форме</a><br>
     {%endif%}
 {%endblock%}

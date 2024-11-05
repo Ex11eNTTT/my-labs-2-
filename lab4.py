@@ -257,7 +257,6 @@ def zerno():
     if request.method == 'GET':
             return render_template('lab4/zerno.html')
     
-#######################Укзать вес и возврат к странице!!!!!!!!!!!!! попробой переменные в начале error первее
     zerno = request.form.get('zerno')
     col = request.form.get('col')
     if zerno == 'yachmen':
