@@ -3,12 +3,13 @@
 
 
 {%block main%}
-    <h1>Деревья</h1>
-    <div>
-        Посажено деревьев: {{tree_count}}
+    <h1 style="margin-left:44%; font-size:40px; color:rgb(24, 6, 224)">Деревья</h1>
+    <div style="margin-left:39%; border: 3px solid black; border-radius:15px; height: 100px; width: 350px; padding-top: 60px;
+    background-color:antiquewhite">
+        <span style="font-size:24px; margin-left: 60px">Посажено деревьев: {{tree_count}}</span>
         <form method="post">
-            <button name="operation" value="plant"  {% if tree_count == 10 %}disabled{% endif %}>Посадить дерево</button>
-            <button name="operation" value="cut" {% if tree_count == 0 %}disabled{% endif %}>Срубить дерево</button>
+            <button name="operation" value="plant"  {% if tree_count == 10 %}disabled{% endif %} style="border-radius:15px; font-size:20px">Посадить дерево</button>
+            <button name="operation" value="cut" {% if tree_count == 0 %}disabled{% endif %} style="border-radius:15px; font-size:20px">Срубить дерево</button>
         </form>
     </div>
 {%endblock%}
