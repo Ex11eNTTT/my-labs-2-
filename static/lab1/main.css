@@ -29,6 +29,7 @@ footer{
 a{
     color: rgb(39, 73, 63);
     transition-duration: 600ms;
+    text-decoration: none
 }
 li{
     margin-top: 10px;
