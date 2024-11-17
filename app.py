@@ -1,4 +1,5 @@
 from flask import Flask, url_for, session
+import os
 from lab1 import lab1
 from lab2 import lab2
 from lab3 import lab3
@@ -10,7 +11,8 @@ app.register_blueprint(lab2)
 app.register_blueprint(lab3)
 app.register_blueprint(lab4)
 app.register_blueprint(lab5)
-app.secret_key = 'Никому не говори пжпж'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'Никому не говори пжпж')
+app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
 
 @app.errorhandler(404)
 def not_found(err):
