@@ -189,3 +189,20 @@ def redact2():
     db_close(conn, cur)
 
     return redirect('/lab5/list')
+
+
+@lab5.route('/lab5/delete', methods=['post'])
+def delete_action():
+    login = session.get('login')
+    if not login:
+        return redirect('/lab5/login')
+    conn, cur = db_connect()
+    article_id = request.form.get('article_id')
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("DELETE FROM articles WHERE id=%s;", (article_id))
+    else:
+        cur.execute("DELETE FROM articles WHERE id=?;", (article_id))
+
+    db_close(conn, cur)
+
+    return redirect('/lab5/list')
