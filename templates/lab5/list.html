@@ -4,8 +4,13 @@
 
 {%block main%}
     <h1>Статьи</h1>
+    {%if articles%}
     {%for article in articles%}
-        <h2>{{article['title']}}</h2>
+        <h2>{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}">
+            <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Редактировать</button></form>
         <blockquote>{{article['article_text']}}</blockquote>
     {%endfor%}
+    {%else%}
+    <h1>У вас нет статей</h1>
+    {%endif%}
 {%endblock%}

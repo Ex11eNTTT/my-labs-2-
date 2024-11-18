@@ -139,3 +139,53 @@ def list():
 
     db_close(conn, cur)
     return render_template('lab5/list.html', articles=articles)
+
+
+
+@lab5.route('/lab5/logout')
+def logout2():
+    session.pop('login', None)
+    return redirect('/lab5/')
+
+
+
+@lab5.route('/lab5/redact', methods=['GET', 'POST'])
+def redact():
+    if request.method == 'GET':
+        return redirect('/lab5/')
+    
+    login = session.get('login')
+    if not login:
+        return redirect('/lab5/login')
+    
+    article_title = request.form.get('article_title')
+    article_text = request.form.get('article_text')
+    article_id = request.form.get('article_id')
+    return render_template('lab5/redact.html', article_text=article_text, article_title=article_title, article_id=article_id)
+
+
+@lab5.route('/lab5/redact2', methods=['post'])
+def redact2():
+    login = session.get('login')
+    if not login:
+        return redirect('/lab5/login')
+    
+    article_title = request.form.get('article_title')
+    article_text = request.form.get('article_text')
+    article_id = request.form.get('article_id')
+
+    conn, cur = db_connect()
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute(f"SELECT id FROM users WHERE login=%s;", (login,))
+    else:
+        cur.execute(f"SELECT id FROM users WHERE login=?;", (login,))
+
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("UPDATE articles SET title=%s, article_text=%s WHERE id=%s;", (article_title, article_text, article_id))
+    else:
+        cur.execute("UPDATE articles SET title=?, article_text=? WHERE id=?;", (article_title, article_text, article_id))
+    
+    db_close(conn, cur)
+
+    return redirect('/lab5/list')
