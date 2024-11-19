@@ -1,17 +1,61 @@
 {% extends "base.html" %}
 {%block lab%}Лабораторная работа 5{%endblock%}
 
-
 {%block main%}
     <h1>Статьи</h1>
     {%if articles%}
-    {%for article in articles%}
-        <h2>{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}">
-            <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Редактировать</button></form> 
-            <form method="post" action="/lab5/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
-        <blockquote>{{article['article_text']}}</blockquote>
-    {%endfor%}
+        Ваши статьи
+        {%if login%}
+                {%for article in articles%}
+                    {%if article['is_favorite']==true%}
+                    <h2>{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}"> В любимых❤️
+                        <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}">
+                        <input type="hidden" name="is_public" value="{{article['is_public']}}"><input type="hidden" name="is_favorite" value="{{article['is_favorite']}}"><button type="submit">Редактировать</button></form> 
+                        <form method="post" action="/lab5/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
+                    <blockquote>{{article['article_text']}}</blockquote>
+                    {%endif%}
+                {%endfor%}
+                {%for article in articles%}
+                    {%if article['is_favorite']==false%}
+                    <h2>{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}">
+                        <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Редактировать</button></form> 
+                        <form method="post" action="/lab5/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
+                    <blockquote>{{article['article_text']}}</blockquote>
+                    {%endif%}   
+                {%endfor%}
+                {%if articles2%}
+                    Публичные статьи
+                    {%for article in articles2%}
+                        {%if article['is_public']==true%}    
+                            <h2>{{article['title']}}
+                            <blockquote>{{article['article_text']}}</blockquote>
+                        {%else%}
+                        {%endif%}    
+                    {%endfor%}
+                {%else%}
+                {%endif%}    
+        {%else%}
+                Публичные статьи
+                {%for article in articles%}
+                    {%if article['is_public']==true%}    
+                        <h2>{{article['title']}}
+                        <blockquote>{{article['article_text']}}</blockquote>
+                    {%else%}
+                    {%endif%}    
+                {%endfor%}
+        {%endif%}    
     {%else%}
     <h1>У вас нет статей</h1>
+    {%if articles2%}
+            Публичные статьи
+            {%for article in articles2%}
+                {%if article['is_public']==true%}    
+                    <h2>{{article['title']}}</h2>
+                    <blockquote>{{article['article_text']}}</blockquote>
+                {%else%}
+                {%endif%}    
+            {%endfor%}
+        {%else%}
+        {%endif%} 
     {%endif%}
 {%endblock%}

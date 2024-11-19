@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 5{%endblock%}
+
+
+{%block main%}
+    <h1>Все пользователи</h1>
+    <ol>
+        {%for i in logins%}
+        <li>
+            {{i['login']}}
+        </li>
+        {%endfor%}
+    </ol>
+{%endblock%}
