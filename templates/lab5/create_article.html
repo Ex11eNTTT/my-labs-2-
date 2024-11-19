@@ -3,27 +3,27 @@
 
 
 {%block main%}
-    <h1>Создание статьи</h1>
+    <h1 style="color:rgb(10, 17, 43); font-size: 45px;">Создание статьи</h1>
     <form action="/lab5/create" method="post">
         <div>
             <label>
-                Название статьи:
-                <input type="text" maxlength="50" name="title" required>
+                <span style="color: rgb(52, 21, 110); font-size: 20px">Название статьи:</span>
+                <input style="font-size: 20px; border-radius: 5px" type="text" maxlength="50" name="title" required>
             </label>
         </div>
         <div>
-            <textarea name="article_text" required></textarea>
+            <textarea style="font-size: 20px; border-radius: 5px; margin-left: 20px" name="article_text" required></textarea>
         </div>
         <div>
-            Любимая статья
+            <span style="color: rgb(52, 21, 110); font-size: 20px">Любимая статья</span>
             <input type="radio" name="is_favorite" value="1">Да
             <input type="radio" name="is_favorite" checked value="0">Нет
         </div>
         <div>
-            Публичная статья
+            <span style="color: rgb(52, 21, 110); font-size: 20px">Публичная статья</span>
             <input type="radio" name="is_public" value="1">Да
             <input type="radio" name="is_public" checked value="0">Нет
         </div>
-        <button type="submit">Создать</button>
+        <button type="submit" style="font-size: 20px; border-radius: 5px;">Создать</button>
     </form>
 {%endblock%}

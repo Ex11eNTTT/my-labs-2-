@@ -3,11 +3,11 @@
 
 
 {%block main%}
-    <h1>Все пользователи</h1>
+    <h1 style="color: rgb(37, 25, 80); font-size: 25px">Все пользователи</h1>
     <ol>
         {%for i in logins%}
         <li>
-            {{i['login']}}
+            <span style="color: rgb(48, 8, 196); font-size: 20px">{{i['login']}}</span>
         </li>
         {%endfor%}
     </ol>

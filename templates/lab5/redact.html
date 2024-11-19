@@ -3,11 +3,11 @@
 
 
 {%block main%}
-<h1>Редактирование статьи {{article_title}}</h1>
+<h1>Редактирование статьи <span style="color: red;">{{article_title}}</span></h1>
 <form action="/lab5/redact2" method="post">
     <div>
         <label>
-            Название статьи:
+            <span style="color: rgb(49, 30, 83); font-size: 25px">Название статьи:</span>
             <input type="text" maxlength="50" name="article_title" value="{{article_title}}" required>
         </label>
     </div>
@@ -17,20 +17,20 @@
     <input type="hidden" name="article_id" value="{{article_id}}">
     <div>
         {%if is_favorite==false%}
-        Любимая статья
+        <span style="color: rgb(49, 30, 83); font-size: 25px">Любимая статья:</span>
         <input type="radio" name="is_favorite" value="1">Да
-        <input type="radio" name="is_favorite" checked value="0">Нет
+        <input type="radio" name="is_favorite" checked value="0">Нет<br>
         {%else%}
-        Любимая статья
+        <span style="color: rgb(49, 30, 83); font-size: 25px">Любимая статья:</span>
         <input type="radio" name="is_favorite" checked value="1">Да
-        <input type="radio" name="is_favorite" value="0">Нет
+        <input type="radio" name="is_favorite" value="0">Нет<br>
         {%endif%}
         {%if is_public==false%}
-        Публичная статья
+        <span style="color: rgb(49, 30, 83); font-size: 25px">Публичная статья</span>
         <input type="radio" name="is_public" value="1">Да
         <input type="radio" name="is_public" checked value="0">Нет
         {%else%}
-        Публичная статья
+        <span style="color: rgb(49, 30, 83); font-size: 25px">Публичная статья</span>
         <input type="radio" name="is_public" checked value="1">Да
         <input type="radio" name="is_public" value="0">Нет
         {%endif%}

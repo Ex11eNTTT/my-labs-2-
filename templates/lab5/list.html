@@ -2,32 +2,33 @@
 {%block lab%}Лабораторная работа 5{%endblock%}
 
 {%block main%}
-    <h1>Статьи</h1>
+    <h1 style="color:rgb(59, 38, 10); font-size: 50px">Статьи</h1>
     {%if articles%}
-        Ваши статьи
+        <span style="color: rgb(85, 49, 77); font-size: 25px;">Ваши статьи</span>
         {%if login%}
                 {%for article in articles%}
                     {%if article['is_favorite']==true%}
-                    <h2>{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}"> В любимых❤️
-                        <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}">
-                        <input type="hidden" name="is_public" value="{{article['is_public']}}"><input type="hidden" name="is_favorite" value="{{article['is_favorite']}}"><button type="submit">Редактировать</button></form> 
-                        <form method="post" action="/lab5/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
-                    <blockquote>{{article['article_text']}}</blockquote>
+                        <h2>{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}"> <span style="font-size: 40px;">❤️</span><br>
+                            <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}">
+                            <input type="hidden" name="is_public" value="{{article['is_public']}}"><input type="hidden" name="is_favorite" value="{{article['is_favorite']}}"><button type="submit">Редактировать</button></form> 
+                            <form method="post" action="/lab5/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
+                            <blockquote>{{ article['article_text']}}</blockquote>
                     {%endif%}
                 {%endfor%}
                 {%for article in articles%}
                     {%if article['is_favorite']==false%}
-                    <h2>{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}">
+                    <h2 style="color: rgb(44, 32, 37); font-size: 25px">{{article['title']}}</h2> <form action="/lab5/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}">
                         <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Редактировать</button></form> 
                         <form method="post" action="/lab5/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
                     <blockquote>{{article['article_text']}}</blockquote>
                     {%endif%}   
                 {%endfor%}
                 {%if articles2%}
-                    Публичные статьи
+                <hr>
+                <span style="font-size: 25px;">Публичные статьи</span>
                     {%for article in articles2%}
                         {%if article['is_public']==true%}    
-                            <h2>{{article['title']}}
+                            <h2 style="color: rgb(44, 32, 37); font-size: 25px">{{article['title']}}
                             <blockquote>{{article['article_text']}}</blockquote>
                         {%else%}
                         {%endif%}    
@@ -35,19 +36,20 @@
                 {%else%}
                 {%endif%}    
         {%else%}
-                Публичные статьи
+                <hr>
+                <span style="font-size: 25px;">Публичные статьи</span>
                 {%for article in articles%}
                     {%if article['is_public']==true%}    
-                        <h2>{{article['title']}}
+                        <h2 style="color: rgb(44, 32, 37); font-size: 25px">{{article['title']}}</h2>
                         <blockquote>{{article['article_text']}}</blockquote>
                     {%else%}
                     {%endif%}    
                 {%endfor%}
         {%endif%}    
     {%else%}
-    <h1>У вас нет статей</h1>
+    <h1 style="color: rgb(44, 32, 37); font-size: 25px">У вас нет статей</h1>
     {%if articles2%}
-            Публичные статьи
+            <span style="color: rgb(44, 32, 37); font-size: 25px">Публичные статьи</span>
             {%for article in articles2%}
                 {%if article['is_public']==true%}    
                     <h2>{{article['title']}}</h2>
