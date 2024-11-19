@@ -117,7 +117,7 @@ def create():
     if current_app.config['DB_TYPE'] == 'postgres':
         cur.execute(f"INSERT INTO articles(user_id, title, article_text, is_favorite, is_public) VALUES (%s, %s, %s, %s, %s);", (login_id, title, article_text, is_favorite, is_public))
     else:
-        cur.execute(f"INSERT INTO articles(login_id, title, article_text) VALUES (?, ?, ?, ?, ?);", (login_id, title, article_text, is_favorite, is_public))
+        cur.execute(f"INSERT INTO articles(login_id, title, article_text, is_favorite, is_public) VALUES (?, ?, ?, ?, ?);", (login_id, title, article_text, is_favorite, is_public))
     db_close(conn, cur)
     return redirect('/lab5')
 
