@@ -47,7 +47,7 @@ def api():
             cur.execute(f"SELECT * FROM offices")
             offices = cur.fetchall()
             offices = [tuple(row) for row in offices]
-            offices = json.dumps(offices, default=str)
+            offices = json.dumps(offices)
         db_close(conn,cur)
         return {
             'jsonrpc': '2.0',
