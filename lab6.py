@@ -1,11 +1,32 @@
-from flask import Blueprint, render_template, request, session
-
-
+from flask import Blueprint, url_for, redirect, render_template, request, make_response, session, current_app
+import sqlite3
+from os import path
+import psycopg2
+from psycopg2.extras import RealDictCursor
 lab6 = Blueprint('lab6', __name__)
+def db_connect():
+    if current_app.config['DB_TYPE'] == 'postgres':
+        conn = psycopg2.connect(
+            host = '127.0.0.1',
+            database = 'dima_gavrilov_knowledge_base',
+            user = 'dima_gavrilov_knowledge_base',
+            password = '123'
+            )
 
-offices = []
-for i in range(1, 11):
-    offices.append({"number": i, "tenant": "", "price": 900+i%3})
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+    else:
+        dir_path = path.dirname(path.realpath(__file__))
+        db_path = path.join(dir_path, "database.db")
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+    return conn, cur
+
+def db_close(conn,cur):
+    conn.commit()
+    cur.close()
+    conn.close()
+
 
 
 @lab6.route('/lab6/')
@@ -17,6 +38,13 @@ def api():
     data = request.json
     id = data['id']
     if data['method'] == 'info':
+        conn, cur = db_connect()
+        if current_app.config['DB_TYPE'] == 'postgres':
+            cur.execute(f"SELECT * FROM offices")
+        else: 
+            cur.execute(f"SELECT * FROM offices")
+        offices = cur.fetchall()
+        db_close(conn,cur)
         return {
             'jsonrpc': '2.0',
             'result': offices,
@@ -44,9 +72,16 @@ def api():
                 'id': id
             }
         endprice = 0
+        conn, cur = db_connect()
+        if current_app.config['DB_TYPE'] == 'postgres':
+            cur.execute(f"SELECT * FROM offices")
+        else: 
+            cur.execute(f"SELECT * FROM offices")
+        offices = cur.fetchall()
         for office in offices:
             if office['tenant'] == login:
                 endprice = endprice+office['price']
+        db_close(conn,cur)
         
         return{
             'jsonrpc': '2.0',
@@ -60,6 +95,12 @@ def api():
 
     if data['method'] == 'booking':
         office_number = data['params']
+        conn, cur = db_connect()
+        if current_app.config['DB_TYPE'] == 'postgres':
+            cur.execute(f"SELECT * FROM offices")
+        else: 
+            cur.execute(f"SELECT * FROM offices")
+        offices = cur.fetchall()
         for office in offices:
             if office['number'] == office_number:
                 if office['tenant'] != '':
@@ -71,7 +112,11 @@ def api():
                         },
                         'id': id
                     }
-                office['tenant'] = login
+                if current_app.config['DB_TYPE'] == 'postgres':
+                    cur.execute("UPDATE offices SET tenant=%s WHERE number=%s;", (login,office_number))
+                else:
+                    cur.execute("UPDATE offices SET tenant=? WHERE number=?;", (login,office_number))
+                db_close(conn, cur)
                 return {
                     'jsonrpc': '2.0',
                     'result': 'succes',
@@ -79,6 +124,12 @@ def api():
                 }
     if data['method'] == 'cancellation':
         office_number = data['params']
+        conn, cur = db_connect()
+        if current_app.config['DB_TYPE'] == 'postgres':
+            cur.execute(f"SELECT * FROM offices")
+        else: 
+            cur.execute(f"SELECT * FROM offices")
+        offices = cur.fetchall()
         for office in offices:
             if office['number'] == office_number:
                 if office['tenant'] == '':
@@ -107,7 +158,12 @@ def api():
                         },
                         'id': id
                     }
-                office['tenant'] = ''
+
+                if current_app.config['DB_TYPE'] == 'postgres':
+                    cur.execute("UPDATE offices SET tenant=%s WHERE number=%s;", ('',office_number))
+                else:
+                    cur.execute("UPDATE offices SET tenant=? WHERE number=?;", ('',office_number))
+                db_close(conn, cur)
                 return {
                     'jsonrpc': '2.0',
                     'result': 'succes',
