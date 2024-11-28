@@ -46,7 +46,7 @@ def api():
         else: 
             cur.execute(f"SELECT * FROM offices")
             offices = cur.fetchall()
-            office = json.dumps(office)
+            office = json.dumps(office, default=str)
         db_close(conn,cur)
         return {
             'jsonrpc': '2.0',
