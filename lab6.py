@@ -45,8 +45,10 @@ def api():
             offices = cur.fetchall()
         else: 
             cur.execute(f"SELECT * FROM offices")
+            def clean_value(value):
+                return value if value is not None else ''
             rows = cur.fetchall()
-            offices = [dict(row) for row in rows]
+            offices = [{key: clean_value(value) for key, value in zip(cur.description, row)} for row in rows]
             offices = json.dumps(offices)
         db_close(conn,cur)
         return {
