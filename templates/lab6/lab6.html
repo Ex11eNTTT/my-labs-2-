@@ -29,14 +29,63 @@ function getOfficeList() {
             li.innerText = `${office.number}: ${office.tenant || 'свободен'}`;
 
             const bookingButton = document.createElement('button');
+            const cancellationButton = document.createElement('button');
+            cancellationButton.innerText = 'снять аренду'
             bookingButton.innerText = 'зарезервировать';
             bookingButton.onclick = function() {booking(office.number)};
+            cancellationButton.onclick = function(){cancellation(office.number)}
             li.appendChild(bookingButton);
+            li.appendChild(cancellationButton);
 
             ul.appendChild(li);}
             
         });
     }
+    function cancellation(officeNumber){
+        const url = '/lab6/json-rpc-api/'
+        const json = {
+            'jsonrpc': '2.0',
+            'method': 'cancellation',
+            'params': officeNumber,
+            'id': Math.round(Math.random()*1000)
+        };
+        fetch(url,{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(json)
+        })
+        .then(function(responce){
+            return responce.json()
+        })
+        .then(function(data){
+            if(data.error){
+                switch(data.error.code){
+                    case 1:
+                        alert('Вы не авторизированы!');
+                        break;
+                    case 3:
+                        alert('Офис не аредуется');
+                    break;
+                    case 4:
+                        alert('Вы не можете снять этот офис с аренды!');
+                    break;
+                    case -32601:
+                        alert('Странная ошибка');
+                        break;
+                }
+            }
+            else{
+                document.getElementById('office-list').innerHTML='';
+                getOfficeList();
+            }
+        });
+
+    }
+
+
+
+
+
     function booking(officeNumber){
         const url = '/lab6/json-rpc-api/';
         const json = {
