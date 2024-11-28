@@ -45,18 +45,7 @@ def api():
             offices = cur.fetchall()
         else: 
             cur.execute(f"SELECT * FROM offices")
-            def clean_value(value):
-                return value if value is not None else ''
-            rows = cur.fetchall()
-
-            # Получение названий столбцов
-            columns = [column[0] for column in cur.description]
-
-            # Преобразование Row в словари
-            offices = [{columns[i]: clean_value(row[i]) for i in range(len(columns))} for row in rows]
-
-            # Сериализация в JSON
-            offices = json.dumps(offices)
+            offices = [dict(row) for row in cur.fetchall()]
         db_close(conn,cur)
         return {
             'jsonrpc': '2.0',
