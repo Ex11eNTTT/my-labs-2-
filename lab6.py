@@ -45,8 +45,8 @@ def api():
             offices = cur.fetchall()
         else: 
             cur.execute(f"SELECT * FROM offices")
-            offices = cur.fetchall()
-            offices = [tuple(row) for row in offices]
+            rows = cur.fetchall()
+            offices = [dict(row) for row in rows]
             offices = json.dumps(offices)
         db_close(conn,cur)
         return {
