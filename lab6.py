@@ -1,5 +1,6 @@
 from flask import Blueprint, url_for, redirect, render_template, request, make_response, session, current_app
 import sqlite3
+import json
 from os import path
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -41,9 +42,11 @@ def api():
         conn, cur = db_connect()
         if current_app.config['DB_TYPE'] == 'postgres':
             cur.execute(f"SELECT * FROM offices")
+            offices = cur.fetchall()
         else: 
             cur.execute(f"SELECT * FROM offices")
-        offices = cur.fetchall()
+            offices = cur.fetchall()
+            office = json.dumps(office)
         db_close(conn,cur)
         return {
             'jsonrpc': '2.0',
