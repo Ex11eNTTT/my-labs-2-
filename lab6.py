@@ -48,7 +48,14 @@ def api():
             def clean_value(value):
                 return value if value is not None else ''
             rows = cur.fetchall()
-            offices = [{key: clean_value(value) for key, value in zip(cur.description, row)} for row in rows]
+
+            # Получение названий столбцов
+            columns = [column[0] for column in cur.description]
+
+            # Преобразование Row в словари
+            offices = [{columns[i]: clean_value(row[i]) for i in range(len(columns))} for row in rows]
+
+            # Сериализация в JSON
             offices = json.dumps(offices)
         db_close(conn,cur)
         return {
