@@ -19,8 +19,6 @@ app.register_blueprint(lab4)
 app.register_blueprint(lab5)
 app.register_blueprint(lab6)
 
-
-
 @app.errorhandler(404)
 def not_found(err):
     path = url_for('static', filename='lab1/goblin.png')
