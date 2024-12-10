@@ -85,3 +85,26 @@ def get_film(id):
     </html>
     ''', 404
     return films[id]
+
+
+@lab7.route('/lab7/rest-api/films/<int:id>', methods=['DELETE'])
+def del_films(id):
+    path = url_for('static', filename='lab1/goblin.png')
+    path_css = url_for("static", filename='lab1/lab1.css')
+    if id < 0 or id > len(films)-1:
+        return '''
+    <!doctype html>
+    <link rel="stylesheet" href="'''+path_css+'''">
+    <html>
+        <head>
+        </head>
+        <main>
+            <div class="trabl">Ты походу не тута :)</div>
+            <img class="image2" src="''' +path+ '''">
+        </main>
+        <footer>
+        </footer>
+    </html>
+    ''', 404
+    del films[id]
+    return '', 204
