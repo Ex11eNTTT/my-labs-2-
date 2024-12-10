@@ -75,7 +75,7 @@ function addFilm(){
     document.getElementById('title-ru').value = '';
     document.getElementById('year').value = '';
     document.getElementById('description').value = '';
-    ocument.getElementById('description-error').innerText = '';
+    document.getElementById('description-error').innerText = '';
     showModal();
 }
 
