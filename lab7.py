@@ -32,10 +32,6 @@ def db_close(conn,cur):
 
 
 
-
-
-
-
 @lab7.route('/lab7/')
 def main():
     return render_template('lab7/lab7.html')
@@ -49,7 +45,7 @@ def get_films():
         films = cur.fetchall()
     else: 
         cur.execute(f"SELECT * FROM films")
-        films = cur.fetchall()
+        films = [dict(row) for row in cur.fetchall()]
     db_close(conn,cur)
     return films
 
