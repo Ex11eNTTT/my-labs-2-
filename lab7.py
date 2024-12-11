@@ -2,138 +2,116 @@ from flask import Blueprint, url_for, redirect, render_template, request, make_r
 import sqlite3
 import json
 from os import path
+from datetime import datetime
 import psycopg2
 from psycopg2.extras import RealDictCursor
 lab7 = Blueprint('lab7', __name__)
+
+def db_connect():
+    if current_app.config['DB_TYPE'] == 'postgres':
+        conn = psycopg2.connect(
+            host = '127.0.0.1',
+            database = 'dima_gavrilov_knowledge_base',
+            user = 'dima_gavrilov_knowledge_base',
+            password = '123'
+            )
+
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+    else:
+        dir_path = path.dirname(path.realpath(__file__))
+        db_path = path.join(dir_path, "database.db")
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+    return conn, cur
+
+def db_close(conn,cur):
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+
+
+
 
 
 @lab7.route('/lab7/')
 def main():
     return render_template('lab7/lab7.html')
 
-films = [
-    {
-        'title': 'Interstellar',
-        'title_ru': 'Интерстеллар',
-        'year': 2014,
-        'description': 'Когда засуха, пыльные бури и вымирание растений приводят человечество\
-              к продовольственному кризису, коллектив исследователей и учёных отправляется сквозь червоточину\
-                  (которая предположительно соединяет области пространства-времени через большое расстояние) в путешествие, \
-                    чтобы превзойти прежние ограничения для космических путешествий человека и найти планету с подходящими для человечества условиями.'
-    },
-    {
-        'title': 'The Shawshank Redemption',
-        'title_ru': 'Побег из Шоушенка',
-        'year': 1994,
-        'description': 'Бухгалтер Энди Дюфрейн обвинён в убийстве собственной жены и её любовника. Оказавшись в тюрьме под названием\
-              Шоушенк, он сталкивается с жестокостью и беззаконием, царящими по обе стороны решётки. Каждый, кто попадает в эти стены,\
-                  становится их рабом до конца жизни. Но Энди, обладающий живым умом и доброй душой, находит подход как к заключённым, \
-                    так и к охранникам, добиваясь их особого к себе расположения.'
-    },
-    {
-        'title': 'Shutter Island',
-        'title_ru': 'Остров проклятых',
-        'year': 2009,
-        'description': 'Два американских судебных пристава отправляются на один из островов в штате Массачусетс,\
-              чтобы расследовать исчезновение пациентки клиники для умалишенных преступников. При проведении расследования\
-                  им придется столкнуться с паутиной лжи, обрушившимся ураганом и смертельным бунтом обитателей клиники.'
-    },
-    {
-        'title': 'Shrek',
-        'title_ru': 'Шрэк',
-        'year': 2001,
-        'description': 'Жил да был в сказочном государстве большой зеленый великан по имени Шрэк.\
-              Жил он в гордом одиночестве в лесу, на болоте, которое считал своим. Но однажды злобный\
-                  коротышка — лорд Фаркуад, правитель волшебного королевства, безжалостно согнал на Шрэково\
-                      болото всех сказочных обитателей.И беспечной жизни зеленого великана пришел конец. Но лорд\
-                          Фаркуад пообещал вернуть Шрэку болото, если великан добудет ему прекрасную принцессу Фиону, \
-                            которая томится в неприступной башне, охраняемой огнедышащим драконом.'
-    },
-    {
-        'title': 'Intouchables',
-        'title_ru': '1+1',
-        'year': 2011,
-        'description': 'Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает\
-              в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья\
-                  Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному\
-                      креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений.'
-    },
-
-]
 
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def get_films():
+    conn, cur = db_connect()
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute(f"SELECT * FROM films")
+        films = cur.fetchall()
+    else: 
+        cur.execute(f"SELECT * FROM films")
+        films = cur.fetchall()
+    db_close(conn,cur)
     return films
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['GET'])
 def get_film(id):
-    path = url_for('static', filename='lab1/goblin.png')
-    path_css = url_for("static", filename='lab1/lab1.css')
-    if id < 0 or id > len(films)-1:
-        return '''
-    <!doctype html>
-    <link rel="stylesheet" href="'''+path_css+'''">
-    <html>
-        <head>
-        </head>
-        <main>
-            <div class="trabl">Ты походу не тута :)</div>
-            <img class="image2" src="''' +path+ '''">
-        </main>
-        <footer>
-        </footer>
-    </html>
-    ''', 404
-    return films[id]
+    conn, cur = db_connect()
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM films WHERE id=%s", (id, ))
+        films = cur.fetchone()
+    else: 
+        cur.execute("SELECT * FROM films WHERE id=?", (id, ))
+        films = cur.fetchone()
+    db_close(conn,cur)
+    if films is None:
+        return "Фильм не найден", 404
+    return films
 
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['DELETE'])
 def del_films(id):
-    path = url_for('static', filename='lab1/goblin.png')
-    path_css = url_for("static", filename='lab1/lab1.css')
-    if id < 0 or id > len(films)-1:
-        return '''
-    <!doctype html>
-    <link rel="stylesheet" href="'''+path_css+'''">
-    <html>
-        <head>
-        </head>
-        <main>
-            <div class="trabl">Ты походу не тута :)</div>
-            <img class="image2" src="''' +path+ '''">
-        </main>
-        <footer>
-        </footer>
-    </html>
-    ''', 404
-    del films[id]
+    conn, cur = db_connect()
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("DELETE FROM films WHERE id=%s", (id,))
+    else: 
+        cur.execute("DELETE FROM films WHERE id=?", (id,))
+    db_close(conn,cur)
     return '', 204
 
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['PUT'])
 def put_films(id):
-    path = url_for('static', filename='lab1/goblin.png')
-    path_css = url_for("static", filename='lab1/lab1.css')
-    if id < 0 or id > len(films)-1:
-        return '''
-    <!doctype html>
-    <link rel="stylesheet" href="'''+path_css+'''">
-    <html>
-        <head>
-        </head>
-        <main>
-            <div class="trabl">Ты походу не тута :)</div>
-            <img class="image2" src="''' +path+ '''">
-        </main>
-        <footer>
-        </footer>
-    </html>
-    ''', 404
     film = request.get_json()
+    conn, cur = db_connect()
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM films WHERE id=%s", (id, ))
+        films = cur.fetchone()
+    else: 
+        cur.execute("SELECT * FROM films WHERE id=?", (id, ))
+        films = cur.fetchone()
+    db_close(conn,cur)
+    if films is None:
+        return "Фильм не найден", 404
     if film['description'] == '':
         return {'description': 'Заполните описание'}, 400
-    films[id]=film
-    return films[id]
+    if film['title_ru'] == '':
+        return {'title_ru': 'Заполните поле'}, 400
+    if film['year'] == '':
+        return {'year': 'Заполните дату!'}, 400
+    if len(film['description']) > 2000:
+        l = len(film['description'])
+        return {'description': f'Описание не должно привышать 2000 символов! Символов сейчас: {l}'}, 400
+    if int(film['year']) < 1895 or int(film['year']) > datetime.now().year:
+        return {'year': f'Вы вышли за пределы(1895 по {datetime.now().year})'}, 400
+    if film['title'] == '':
+        film['title'] = film['title_ru']
+    conn, cur = db_connect()
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("UPDATE films set title=%s, title_ru=%s, year=%s, description=%s WHERE id=%s", (film['title'], film['title_ru'], film['year'], film['description'], id))
+    else: 
+        cur.execute("UPDATE films set title=?, title_ru=?, year=?, description=? WHERE id=?", (film['title'], film['title_ru'], film['year'], film['description'], id))
+    db_close(conn,cur)
+    return ''
 
 
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
@@ -141,9 +119,26 @@ def add_films():
     film = request.get_json()
     if film['description'] == '':
         return {'description': 'Заполните описание'}, 400
+    if len(film['description']) > 2000:
+        l = len(film['description'])
+        return {'description': f'Описание не должно привышать 2000 символов! Символов сейчас: {l}'}, 400
+    if film['title_ru'] == '':
+        return {'title_ru': 'Заполните поле'}, 400
+    if film['year'] == '':
+        return {'year': 'Заполните дату!'}, 400
+    if int(film['year']) < 1895 or int(film['year']) > datetime.now().year:
+        return {'year': f'Вы вышли за пределы (1895 по {datetime.now().year})'}, 400
+
+
+
+
+
     if film['title'] == '':
         film['title'] = film['title_ru']
-        films.append(film)
-        return len(films)-1
-    films.append(film)
-    return len(films)-1
+    conn, cur = db_connect()
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("INSERT INTO films (title, title_ru, year, description) VALUES (%s, %s, %s, %s)", (film['title'], film['title_ru'], film['year'], film['description']))
+    else: 
+        cur.execute("INSERT INTO films (title, title_ru, year, description) VALUES (?, ?, ?, ?)", (film['title'], film['title_ru'], film['year'], film['description']))
+    db_close(conn,cur)
+    return ""

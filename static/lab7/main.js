@@ -16,19 +16,19 @@ function fillFilmList(){
 
             tdTitle.style.fontStyle = 'italic';
 
-            tdTitle.innerText = films[i].title == films[i].title_ru ? '': films[i].title;
+            tdTitle.innerText = films[i].title;
             tdTitleRus.innerText = films[i].title_ru;
             tdYear.innerText = films[i].year;            
 
             let editButton = document.createElement('button');
             editButton.innerText = 'редактировать';
             editButton.onclick = function() {
-                editFilm(i);
+                editFilm(films[i].id);
             };
             let delButton = document.createElement('button');
             delButton.innerText = 'удалить';
             delButton.onclick = function(){
-                deleteFilm(i, films[i].title_ru);
+                deleteFilm(films[i].id, films[i].title_ru);
             };
 
 
@@ -77,6 +77,8 @@ function addFilm(){
     document.getElementById('year').value = '';
     document.getElementById('description').value = '';
     document.getElementById('description-error').innerText = '';
+    document.getElementById('title-ru-error').innerText = '';
+    document.getElementById('year-error').innerText = '';
     showModal();
 }
 
@@ -112,6 +114,10 @@ function sendFilm(){
     .then(function(errors){
         if(errors.description)
             document.getElementById('description-error').innerText = errors.description;
+        if(errors.title_ru)
+            document.getElementById('title-ru-error').innerText = errors.title_ru;
+        if(errors.year)
+            document.getElementById('year-error').innerText = errors.year;
     })    
 }
 
@@ -128,6 +134,8 @@ function editFilm(id){
         document.getElementById('year').value = film.year;
         document.getElementById('description').value = film.description;
         document.getElementById('description-error').innerText = '';
+        document.getElementById('title-ru-error').innerText = '';
+        document.getElementById('year-error').innerText = '';
         showModal();
     })
 
