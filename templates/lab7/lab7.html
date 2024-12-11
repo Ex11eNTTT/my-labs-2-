@@ -9,16 +9,51 @@
     z-index: 100;
     box-shadow: 3px 3px black;
     background: white;
-    width: 400px;
+    width: 600px;
     left: 50%;
     top: 220px;
     margin-left: -200px;
     position: absolute;
     padding: 20px;
+    font-family: "Roboto", sans-serif;
+    background-color: antiquewhite;
 
 }
 .error-message{
     color: red;
+}
+body {
+    font-family: "Roboto", sans-serif;
+  }
+table {
+    width: 650px;
+    border-top: 7px solid rgb(43, 129, 17);
+    border-collapse: collapse;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    font-family: "Roboto", sans-serif;
+    background-color: antiquewhite;
+  }
+  
+td {
+    text-align: left;
+      padding: 10px;
+      border: 3px solid rgb(43, 129, 17);
+  }
+th {
+    text-align: center;
+    padding: 10px;
+      border: 3px solid rgb(43, 129, 17);
+   }
+
+button{
+    border-radius: 5px;
+    margin-top: 3px;
+}
+
+.block{
+    margin-top: 15px;
 }
 </style>
 {%endblock%}
@@ -45,23 +80,31 @@
     <div class="modal">
         <input type="hidden" id="id">
         <label>
-            Название фильма на русском:
-            <input type="text" id="title-ru">
+            <div class="block">
+                <span>Название фильма на русском:</span>
+                <input type="text" id="title-ru">
+            </div>
         </label><br>
 
         <label>
-            Название фильма на оригинальном языке
-            <i>(если фильм русский, то оставьте пустым):</i>
-            <input type="text" id="title">
+            <div class="block">
+                Название фильма на оригинальном языке
+                <i>(если фильм русский, то оставьте пустым):</i>
+                <input type="text" id="title">
+            </div>
         </label><br>
         <label>
-            Год выпуска:
-            <input type="number" id="year">
+            <div class="block">
+                Год выпуска:
+                <input type="number" id="year">
+            </div>
         </label><br>
         <label>
-            Описание:
-            <textarea id="description"></textarea>
-            <div id="description-error" class="error-message"></div>
+            <div class="block">
+                Описание:
+                <textarea id="description"></textarea>
+                <div id="description-error" class="error-message"></div>
+            </div>
         </label><br>
         <button onclick="sendFilm()">ОК</button>
         <button onclick="cancel()">Отмена</button>
