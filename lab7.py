@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect, render_template, request, make_response, session, current_app
+from flask import Blueprint, url_for, redirect, render_template, request, make_response, session, current_app, jsonify
 import sqlite3
 import json
 from os import path
@@ -57,7 +57,8 @@ def get_film(id):
         films = cur.fetchone()
     else: 
         cur.execute("SELECT * FROM films WHERE id=?", (id, ))
-        films = cur.lastrowid
+        films = cur.fetchone()
+        return jsonify(dict(films))
     db_close(conn,cur)
     if films is None:
         return "Фильм не найден", 404
