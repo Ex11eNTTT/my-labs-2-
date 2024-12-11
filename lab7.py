@@ -141,9 +141,8 @@ def add_films():
     film = request.get_json()
     if film['description'] == '':
         return {'description': 'Заполните описание'}, 400
-    print(f"Title: {film.get('title')}, Title RU: {film.get('title_ru')}")
     if film['title'] == '':
-        film['title'] = film.get('title_ru', '')
+        film['title'] = film['title_ru']
         films.append(film)
         return len(films)-1
     films.append(film)
