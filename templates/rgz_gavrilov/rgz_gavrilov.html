@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block lab %}Расчетно-графическая работа{% endblock %}
+
+<script>
+function fillRecipesList() {
+    fetch('/rgz/rest-api/rgz_gavrilov/')
+    .then(function(data) {
+        return data.json();
+    })
+    .then(function(recipes) {
+        let recipesContainer = document.getElementById('recipes'); // Изменено на правильный селектор
+        recipesContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых рецептов
+        for (let i = 0; i < recipes.length; i++) {
+            let div = document.createElement('div');
+            let span_name = document.createElement('span');
+            let span_ingredients = document.createElement('span');
+            let span_steps = document.createElement('span');
+            let span_photo = document.createElement("img");
+
+            span_name.innerText = recipes[i].name;
+            span_ingredients.innerText = recipes[i].ingredients;
+            span_steps.innerText = recipes[i].steps;
+            span_photo.src = recipes[i].photo; // Устанавливаем атрибут src для изображения
+
+            div.append(span_name);
+            div.append(span_photo);
+            div.append(span_ingredients); // Исправлено на правильную переменную
+            div.append(span_steps); // Исправлено на правильную переменную
+
+            recipesContainer.append(div); // Исправлено на правильный контейнер
+        }
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    fillRecipesList();
+});
+</script>
+
+{% block main %}
+
+<h1>Списки рецептов</h1>
+<div class="recipes">
+
+</div>
+
+{% endblock %}
