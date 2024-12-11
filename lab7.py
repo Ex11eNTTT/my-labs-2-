@@ -57,7 +57,7 @@ def get_film(id):
         films = cur.fetchone()
     else: 
         cur.execute("SELECT * FROM films WHERE id=?", (id, ))
-        films = [dict(row) for row in cur.fetchone()]
+        films = cur.lastrowid
     db_close(conn,cur)
     if films is None:
         return "Фильм не найден", 404
@@ -84,7 +84,7 @@ def put_films(id):
         films = cur.fetchone()
     else: 
         cur.execute("SELECT * FROM films WHERE id=?", (id, ))
-        films = [dict(row) for row in cur.fetchone()]
+        films = cur.lastrowid
     db_close(conn,cur)
     if films is None:
         return "Фильм не найден", 404
