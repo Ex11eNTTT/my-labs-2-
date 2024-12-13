@@ -7,7 +7,7 @@ from db.models import users, articles
 from datetime import datetime
 import psycopg2
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from flask_login import login_user, login_required, current_user
 from psycopg2.extras import RealDictCursor
 lab8 = Blueprint('lab8', __name__)
 
@@ -34,3 +34,24 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     return redirect('/lab8/')
+
+@lab8.route('/lab8/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('lab8/login.html')
+    login_form = request.form.get('login')
+    password_form = request.form.get('login')
+
+    user = users.query.filter_by(login=login_form).first()
+
+    if user:
+        if check_password_hash(user.password, password_form):
+            login_user(user, remember=False)
+            return redirect('/lab8/')
+    return render_template('/lab8/login.html', error='Ошибка входа: логин и/или пароль неверны')
+
+
+@lab8.route('/lab8/articles')
+@login_required
+def articles_list():
+    return "Список статей"
