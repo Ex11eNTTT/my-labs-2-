@@ -7,7 +7,7 @@ from db.models import users, articles
 from datetime import datetime
 import psycopg2
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 from psycopg2.extras import RealDictCursor
 lab8 = Blueprint('lab8', __name__)
 
@@ -55,3 +55,10 @@ def login():
 @login_required
 def articles_list():
     return "Список статей"
+
+
+@lab8.route('/lab8/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/lab8/')

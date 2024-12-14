@@ -1,46 +1,141 @@
 {% extends "base.html" %}
-{% block lab %}Расчетно-графическая работа{% endblock %}
+{%block lab%}Лабораторная работа 7{%endblock%}
 
-<script>
-function fillRecipesList() {
-    fetch('/rgz/rest-api/rgz_gavrilov/')
-    .then(function(data) {
-        return data.json();
-    })
-    .then(function(recipes) {
-        let recipesContainer = document.getElementById('recipes'); // Изменено на правильный селектор
-        recipesContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых рецептов
-        for (let i = 0; i < recipes.length; i++) {
-            let div = document.createElement('div');
-            let span_name = document.createElement('span');
-            let span_ingredients = document.createElement('span');
-            let span_steps = document.createElement('span');
-            let span_photo = document.createElement("img");
-
-            span_name.innerText = recipes[i].name;
-            span_ingredients.innerText = recipes[i].ingredients;
-            span_steps.innerText = recipes[i].steps;
-            span_photo.src = recipes[i].photo; // Устанавливаем атрибут src для изображения
-
-            div.append(span_name);
-            div.append(span_photo);
-            div.append(span_ingredients); // Исправлено на правильную переменную
-            div.append(span_steps); // Исправлено на правильную переменную
-
-            recipesContainer.append(div); // Исправлено на правильный контейнер
-        }
-    });
+{%block script%}
+<script src="{{url_for('static', filename='rgz_gavrilov/rgz.js')}}"></script>
+<style>
+h1{
+    margin-left: 42%;
 }
-document.addEventListener('DOMContentLoaded', function() {
-    fillRecipesList();
-});
-</script>
+table{
+    margin-left: 42%;
+}
+img{
+    margin-left: -5%;
+}
+.modal, .modal2, .modal3, .modal4, .modal5{
+    position: fixed;
+    display: none;
+    z-index: 100;
+    box-shadow: 3px 3px black;
+    background: white;
+    width: 600px;
+    left: 33%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    margin-left: -200px;
+    padding: 20px;
+    font-family: "Roboto", sans-serif;
+    background-color: antiquewhite;
 
-{% block main %}
+}
 
-<h1>Списки рецептов</h1>
-<div class="recipes">
+table{
+    margin-bottom: 20px;
+}
 
-</div>
+.button-search{
+    position: fixed;
+    font-family: "Roboto", sans-serif;
+    width: 200px;
+    right: 600px;
+}
+.button-search2{
+    position: fixed;
+    font-family: "Roboto", sans-serif;
+    width: 200px;
+    right: 300px;
+}
+</style>
+{%endblock%}
+{%block main%}
+    <h1>Списки рецептов</h1>
+    {%if login%}
+    <span>Вы авторизованы</span>
+    <form action="/rgz/rest-api/rgz_gavrilov/logout", method="post">
+        <button type="submit">Выйти</button>
+    </form>
+    <button onclick="showModal5()">Добавить рецепт</button>
+    {%else%}
+    <form action="/rgz/rest-api/rgz_gavrilov/login" method="post" style="position: absolute">
+        Вы администратор?<br>
+        Логин:<br>
+        <input type="text" name="login"><br>
+        Пароль:<br>
+        <input type="password" name="password"><br>
+        <button type="submit">Войти</button>
+        {%if error_login%}
+        {{error_login}}
+        {%else%}
+        {%endif%}
+    </form>
+    {%endif%}
+    <button onclick=search_name() class="button-search">Искать по названию</button>
+    <button onclick=showModal4() class="button-search2">Искать по ингридиентам</button>
+    <table>
+        <tbody id="recipes"></tbody>
+    </table>
+    <script>
+        fillRecipes();
+    </script>
 
-{% endblock %}
+    <div class="modal">
+        <div id="name_modal"></div>
+        <img src="" id="photo_modal" style="margin-left: 30%;"><br>
+        <span>Состав:</span><br>
+        <div id="ingredients_modal"></div>
+        <span>Шаги приготовления:</span><br>
+        <div id="steps_modal"></div>
+        <button onclick="hideModal()">Закрыть</button>
+    </div>
+
+
+
+    <div class="modal2">
+        <input type="hidden" id="id_modal2">
+        Наиминование:<br>
+        <textarea id="name_modal2" required></textarea><br>
+        Ссылка на фотографию:<br>
+        <textarea id="photo_modal2" required></textarea><br>
+        Ингредиенты:<br>
+        <textarea id="ingredients_modal2" required></textarea><br>
+        Шаги приготовления:<br>
+        <textarea id="steps_modal2" required></textarea><br>
+        <button onclick="redact()">Редактировать</button>
+        <button onclick="hideModal2()">Отмена</button>
+        <button onclick="delete_recipe()">Удалить рецепт</button>
+    </div>
+
+
+    <div class="modal3">
+        Введите название:<br>
+        <input type="text" id="search_name" required>
+        <button onclick="search_name2()">Искать</button>
+        <button onclick="hideModal3()">Отмена</button>
+    </div>
+
+
+    <div class="modal4">
+        Введите ингредиенты:<br>
+        <div id="ingredientList"></div>
+        <button onclick="add_ingredient()">Добавить ингридиент</button>
+        <button onclick="hideModal4()">Отмена</button>
+        <button onclick="search_or()">Искать(or)</button>
+        <button onclick="search_and()">Искать(and)</button>
+    </div>
+
+
+    <div class="modal5">
+        <input type="hidden" id="id_modal5">
+        Наиминование:<br>
+        <textarea id="name_modal5" required></textarea><br>
+        Ссылка на фотографию:<br>
+        <textarea id="photo_modal5" required></textarea><br>
+        Ингредиенты:<br>
+        <textarea id="ingredients_modal5" required></textarea><br>
+        Шаги приготовления:<br>
+        <textarea id="steps_modal5" required></textarea><br>
+        <button onclick="add_recipe()">Добавить</button>
+        <button onclick="hideModal5()">Отмена</button>
+    </div>
+{%endblock%}
