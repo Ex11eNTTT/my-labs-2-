@@ -29,7 +29,53 @@ function fillRecipes(){
 
             name.innerText = recipes[i].name;
             photo.src = recipes[i].photo
+
+
             photo.style.width = '300px'
+            name.style.fontFamily = 'Snell Roundhand, cursive'
+            name.style.textAlign = 'Center'
+            name.style.fontSize = '20px'
+            photo.style.height = '250px'
+            photo.style.borderRadius = '15px'
+
+            bt_look.style.marginLeft = '60px'
+            bt_redact.style.marginLeft = '30px';
+            bt_redact.style.backgroundColor = "blue";
+            bt_redact.style.color = 'white'
+            bt_redact.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+            bt_redact.style.transition = '0.5s';
+
+            bt_redact.addEventListener('mouseover', () => {
+            bt_redact.style.transform = 'translate(0, -3px)';
+            bt_redact.style.boxShadow = '0 20px 40px 0 rgba(11, 99, 246, 1)';
+            });
+
+            bt_redact.addEventListener('mouseout', () => {
+            bt_redact.style.transform = 'translate(0, 0)';
+            bt_redact.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+            });
+
+            
+            bt_look.style.backgroundColor = "blue";
+            bt_look.style.color = 'white'
+            bt_look.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+            bt_look.style.transition = '0.5s';
+
+            bt_look.addEventListener('mouseover', () => {
+                bt_look.style.transform = 'translate(0, -3px)';
+                bt_look.style.boxShadow = '0 20px 40px 0 rgba(11, 99, 246, 1)';
+            });
+
+            bt_look.addEventListener('mouseout', () => {
+                bt_look.style.transform = 'translate(0, 0)';
+                bt_look.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+            });
+
+
+
+
+
+
             tr.append(name)
             photo_td.appendChild(photo);
             tr_photo.appendChild(photo_td)
@@ -210,7 +256,50 @@ resp.json().then(function(resp) {
 
         name.innerText = resp[i].name;
         photo.src = resp[i].photo;
-        photo.style.width = '300px';
+       
+        photo.style.width = '300px'
+        name.style.fontFamily = 'Snell Roundhand, cursive'
+        name.style.textAlign = 'Center'
+        name.style.fontSize = '20px'
+        photo.style.height = '250px'
+        photo.style.borderRadius = '15px'
+
+        bt_look.style.marginLeft = '60px'
+        bt_redact.style.marginLeft = '30px';
+        bt_redact.style.backgroundColor = "blue";
+        bt_redact.style.color = 'white'
+        bt_redact.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+        bt_redact.style.transition = '0.5s';
+
+        bt_redact.addEventListener('mouseover', () => {
+        bt_redact.style.transform = 'translate(0, -3px)';
+        bt_redact.style.boxShadow = '0 20px 40px 0 rgba(11, 99, 246, 1)';
+        });
+
+        bt_redact.addEventListener('mouseout', () => {
+        bt_redact.style.transform = 'translate(0, 0)';
+        bt_redact.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+        });
+
+        
+        bt_look.style.backgroundColor = "blue";
+        bt_look.style.color = 'white'
+        bt_look.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+        bt_look.style.transition = '0.5s';
+
+        bt_look.addEventListener('mouseover', () => {
+            bt_look.style.transform = 'translate(0, -3px)';
+            bt_look.style.boxShadow = '0 20px 40px 0 rgba(11, 99, 246, 1)';
+        });
+
+        bt_look.addEventListener('mouseout', () => {
+            bt_look.style.transform = 'translate(0, 0)';
+            bt_look.style.boxShadow = '0 5px 15px 0 rgba(11, 99, 246, 1)';
+        });
+
+
+
+
         tr.append(name);
         photo_td.appendChild(photo);
         tr_photo.appendChild(photo_td);
@@ -225,6 +314,30 @@ resp.json().then(function(resp) {
     bt_reset.onclick = function(){
         fillRecipes()
     }
+
+    bt_reset.style.position = 'absolute'
+    bt_reset.style.right = '300px'
+    bt_reset.style.top = '250px'
+    bt_reset.style.position = 'absolute';
+    bt_reset.style.fontFamily = '"Roboto", sans-serif';
+    bt_reset.style.width = '200px';
+    bt_reset.style.height = '50px';
+    bt_reset.style.right = '450px';
+    bt_reset.style.fontSize = '20px';
+    bt_reset.style.borderRadius = '10px';
+    bt_reset.style.color = 'white';
+    bt_reset.style.transition = '.2s linear';
+    bt_reset.style.background = '#0B63F6';
+
+    bt_reset.addEventListener('mouseover', () => {
+        bt_reset.style.boxShadow = '#003CC5 0 0px 0px 40px inset';
+    });
+
+    bt_reset.addEventListener('mouseout', () => {
+        bt_reset.style.boxShadow = 'none'; // Убираем тень при уходе мыши
+    });
+
+
     tbody.appendChild(bt_reset)
 });
 }

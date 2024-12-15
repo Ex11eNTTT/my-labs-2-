@@ -5,13 +5,17 @@
 <script src="{{url_for('static', filename='rgz_gavrilov/rgz.js')}}"></script>
 <style>
 h1{
-    margin-left: 42%;
+    margin-left: 39%;
+    font-size: 45px;
+    color: rgba(231, 124, 142, 0.952);
+    font-weight: bolder;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 table{
     margin-left: 42%;
 }
 img{
-    margin-left: -5%;
+    margin-left: 6%;
 }
 .modal, .modal2, .modal3, .modal4, .modal5{
     position: fixed;
@@ -26,48 +30,123 @@ img{
     margin-left: -200px;
     padding: 20px;
     font-family: "Roboto", sans-serif;
-    background-color: antiquewhite;
+    background-color: aquamarine;
 
 }
 
 table{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .button-search{
-    position: fixed;
+    position: absolute;
     font-family: "Roboto", sans-serif;
     width: 200px;
-    right: 600px;
+    height: 50px;
+    right: 450px;
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0B63F6;
 }
+.button-search:hover, .button-search2:hover {
+    box-shadow: #003CC5 0 0px 0px 40px inset;
+ }
 .button-search2{
-    position: fixed;
+    position: absolute;
     font-family: "Roboto", sans-serif;
     width: 200px;
-    right: 300px;
+    height: 50px;
+    right: 150px;
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0B63F6;
 }
+
+.login{
+    border: 1px solid black;
+    width: 420px;
+    height: 250px;
+    border-radius: 15px;
+    background-color: blanchedalmond;
+}
+.login2{
+    font-size: 25px;
+    margin-left: 36%;
+}
+.input_vol{
+    width: 300px;
+    height: 20px;
+    margin-left: 15%;
+}
+.button_log{
+    margin-left: 30%;
+    margin-top: 15px;
+    width: 140px;
+    height: 25px;
+}
+
+.auth{
+    font-size: 40px;
+}
+.out{
+    position: absolute;
+    font-family: "Roboto", sans-serif;
+    width: 200px;
+    height: 50px;
+    left: 5px;
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0B63F6; 
+}
+.out:hover {
+    box-shadow: #003CC5 0 0px 0px 40px inset;
+ }
+
+.out2{
+    position: absolute;
+    font-family: "Roboto", sans-serif;
+    width: 200px;
+    height: 50px;
+    left: 250px;
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0B63F6; 
+}
+.out2:hover {
+    box-shadow: #003CC5 0 0px 0px 40px inset;
+ }
 </style>
 {%endblock%}
 {%block main%}
     <h1>Списки рецептов</h1>
     {%if login%}
-    <span>Вы авторизованы</span>
+    <span class="auth">Вы авторизованы</span>
     <form action="/rgz/rest-api/rgz_gavrilov/logout", method="post">
-        <button type="submit">Выйти</button>
+        <button type="submit" class="out">Выйти</button>
     </form>
-    <button onclick="showModal5()">Добавить рецепт</button>
+    <button onclick="showModal5()" class="out2">Добавить рецепт</button>
     {%else%}
     <form action="/rgz/rest-api/rgz_gavrilov/login" method="post" style="position: absolute">
-        Вы администратор?<br>
-        Логин:<br>
-        <input type="text" name="login"><br>
-        Пароль:<br>
-        <input type="password" name="password"><br>
-        <button type="submit">Войти</button>
-        {%if error_login%}
-        {{error_login}}
-        {%else%}
-        {%endif%}
+        <div class="login">
+            <span style="font-size: 30px; margin-left: 21%">Вы администратор?</span><br>
+            <span class="login2">Логин:</span><br>
+            <input type="text" name="login" class="input_vol"><br>
+            <span class="login2">Пароль:</span><br>
+            <input type="password" name="password" class="input_vol"><br>
+            <button type="submit" class="button_log">Войти</button>
+            {%if error_login%}
+            {{error_login}}
+            {%else%}
+            {%endif%}
+        </div>
     </form>
     {%endif%}
     <button onclick=search_name() class="button-search">Искать по названию</button>

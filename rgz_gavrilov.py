@@ -30,9 +30,7 @@ def db_close(conn,cur):
     conn.commit()
     cur.close()
     conn.close()
-
-
-
+    
 @rgz_gavrilov.route('/rgz/')
 def main():
     login = session.get('login')
