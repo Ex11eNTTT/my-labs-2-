@@ -14,7 +14,6 @@
             {%if login%}
             <span style="font-size: 25px; margin-left: 25px">{{login | replace('{','') | replace("'",'')| replace('}','')}}</span>
             <a style="font-size: 25px; margin-left: 25px" href="/lab8/logout">Выйти</a>
-            <a style="font-size: 25px; margin-left: 25px" href="/lab8/all_login">Все пользователи</a>
             {%else%}
             <span style="font-size: 25px; margin-left: 25px">Anonymous</span>
             {%endif%}
