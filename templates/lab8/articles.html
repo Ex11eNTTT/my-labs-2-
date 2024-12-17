@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 8{%endblock%}
+
+{%block main%}
+    {%if search%}
+    <h1 style="color:rgb(59, 38, 10); font-size: 50px">Статьи {{search}}</h1>
+    {%else%}
+    <h1 style="color:rgb(59, 38, 10); font-size: 50px">Статьи</h1>
+    {%endif%}
+    {%if articles%}
+        <span style="color: rgb(85, 49, 77); font-size: 25px;">Ваши статьи</span>
+        {%if login%}
+                {%for article in articles%}
+                    {%if article['is_favorite']== True%}
+                        <h2>{{article['title']}}</h2> <form action="/lab8/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}"> <span style="font-size: 40px;">❤️</span><br>
+                            <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}">
+                            <input type="hidden" name="is_public" value="{{article['is_public']}}"><input type="hidden" name="is_favorite" value="{{article['is_favorite']}}"><button type="submit">Редактировать</button></form> 
+                            <form method="post" action="/lab8/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
+                            <blockquote>{{ article['article_text']}}</blockquote>
+                    {%endif%}
+                {%endfor%}
+                {%for article in articles%}
+                    {%if article['is_favorite']==false%}
+                    <h2 style="color: rgb(44, 32, 37); font-size: 25px">{{article['title']}}</h2> <form action="/lab8/redact" method="post"><input type="hidden" name="article_title" value="{{article['title']}}">
+                        <input type="hidden" name="article_text" value="{{article['article_text']}}"> <input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Редактировать</button></form> 
+                        <form method="post" action="/lab8/delete"><input type="hidden" name="article_id" value="{{article['id']}}"><button type="submit">Удалить</button></form>
+                    <blockquote>{{article['article_text']}}</blockquote>
+                    {%endif%}   
+                {%endfor%}
+                {%if articles2%}
+                <hr>
+                <span style="font-size: 25px;">Публичные статьи</span>
+                    {%for article in articles2%}  
+                            <h2 style="color: rgb(44, 32, 37); font-size: 25px">{{article['title']}}
+                            <blockquote>{{article['article_text']}}</blockquote>
+  
+                    {%endfor%}
+                {%else%}
+                {%endif%}    
+        {%else%}
+                <hr>
+                <span style="font-size: 25px;">Публичные статьи</span>
+                {%for article in articles%}
+                    {%if article['is_public']==true%}    
+                        <h2 style="color: rgb(44, 32, 37); font-size: 25px">{{article['title']}}</h2>
+                        <blockquote>{{article['article_text']}}</blockquote>
+                    {%else%}
+                    {%endif%}    
+                {%endfor%}
+        {%endif%}    
+    {%else%}
+    <h1 style="color: rgb(44, 32, 37); font-size: 25px">У вас нет статей</h1>
+    {%if articles2%}
+            <span style="color: rgb(44, 32, 37); font-size: 25px">Публичные статьи</span>
+            {%for article in articles2%}
+                {%if article['is_public']==true%}    
+                    <h2>{{article['title']}}</h2>
+                    <blockquote>{{article['article_text']}}</blockquote>
+                {%else%}
+                {%endif%}    
+            {%endfor%}
+        {%else%}
+        {%endif%} 
+    {%endif%}
+<div>
+    <form action="/lab8/search/me", method="post">
+        Введите называние статьи:<br>
+        <input type="text" name="search" required><br>
+        <button type="submit">Искать</button>
+    </form>
+</div>
+{%if search%}
+<form action="/lab8/articles", method="GET">
+    <button type="submit">Сбросить</button>
+</form>
+{%else%}
+{%endif%}
+{%endblock%}

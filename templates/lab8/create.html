@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 8{%endblock%}
+
+
+{%block main%}
+    <h1 style="color:rgb(10, 17, 43); font-size: 45px;">Создание статьи</h1>
+    <form action="/lab8/create" method="post">
+        <div>
+            <label>
+                <span style="color: rgb(52, 21, 110); font-size: 20px">Название статьи:</span>
+                <input style="font-size: 20px; border-radius: 5px" type="text" maxlength="50" name="title" required>
+            </label>
+        </div>
+        <div>
+            <textarea style="font-size: 20px; border-radius: 5px; margin-left: 20px" name="article_text" required></textarea>
+        </div>
+        <div>
+            <span style="color: rgb(52, 21, 110); font-size: 20px">Любимая статья</span>
+            <input type="radio" name="is_favorite" value="on">Да
+            <input type="radio" name="is_favorite" value="off" checked>Нет
+        </div>
+        <div>
+            <span style="color: rgb(52, 21, 110); font-size: 20px">Публичная статья</span>
+            <input type="radio" name="is_public" value="on">Да
+            <input type="radio" name="is_public" value="off" checked>Нет
+        </div>
+        <button type="submit" style="font-size: 20px; border-radius: 5px;">Создать</button>
+    </form>
+{%endblock%}
