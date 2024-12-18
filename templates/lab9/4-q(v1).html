@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{%block lab%}Лабораторная работа 9{%endblock%}
+
+
+{%block main%}
+<div style="border: 1px solid black; margin-left: 35%; width: 500px; border-radius: 15px; height: 230px; background-color:bisque">
+    <form action="/lab9/q4" method="post">
+        <label>
+            <span style="font-size: 30px; margin-left: 18%">Что тебе больше нравится?</span><br>
+        </label>
+        <button type="submit" value="first" name="name" style="width: 150px; height: 50px; font-size: 18px; margin-left: 13%; margin-top: 20px; border-radius: 15px">Что-то Сладкое</button>
+        <button type="submit" value="second" name="name" style="width: 150px; height: 50px; font-size: 18px; margin-left: 15%; margin-top: 20px; border-radius: 15px">Что-то Сытное</button>
+    </form>
+</div>
+{%endblock%}

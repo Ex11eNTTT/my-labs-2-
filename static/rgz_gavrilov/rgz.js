@@ -339,8 +339,18 @@ resp.json().then(function(resp) {
 
 
     tbody.appendChild(bt_reset)
+    
+ 
 });
 }
+
+
+
+
+
+
+
+
 function add_ingredient(){
         const input = document.createElement('input');
         input.type = 'text';
